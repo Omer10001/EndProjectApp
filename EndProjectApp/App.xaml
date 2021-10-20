@@ -4,5 +4,20 @@
              x:Class="EndProjectApp.App">
     <Application.Resources>
 
-    </Application.Resources>
+            <ResourceDictionary>
+                <Style x:Key="labelNameStyle" TargetType="Label">
+                    <Setter Property="FontSize" Value="Small" />
+                </Style>
+                <Style x:Key="labelErrorStyle" TargetType="Label">
+                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="TextColor" Value="Red" />
+                    <Setter Property="FontSize" Value="Small" />
+                </Style>
+                <Style x:Key="entryStyle" TargetType="Entry">
+                    <Setter Property="HorizontalOptions" Value="Fill" />
+                </Style>
+           </ResourceDictionary>
+        </Application.Resources>
+
+       
 </Application>

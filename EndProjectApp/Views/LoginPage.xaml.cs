@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EndProjectApp.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace EndProjectApp
+namespace EndProjectApp.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPage : ContentPage
     {
-        public MainPage()
+        public LoginPage()
         {
-            this.BindingContext = new MainPageVM();
+            this.BindingContext = new LoginPageVM();
             InitializeComponent();
         }
-
-       
     }
 }

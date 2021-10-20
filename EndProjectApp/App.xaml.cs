@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using EndProjectApp.Models;
+using EndProjectApp.Views;
 
 
 namespace EndProjectApp
@@ -22,7 +23,7 @@ namespace EndProjectApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new LoginPage();
             CurrentUser = null;
         }
 

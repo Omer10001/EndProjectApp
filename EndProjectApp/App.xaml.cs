@@ -23,7 +23,7 @@ namespace EndProjectApp
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new SignUpPage();
             CurrentUser = null;
         }
 

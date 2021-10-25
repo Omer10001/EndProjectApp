@@ -5,6 +5,7 @@
 
     <StackLayout>
         <Button Text="Login" Command="{Binding GoToLoginCommand}" HorizontalOptions="FillAndExpand" />
+        <Button Text="SignUp" Command="{Binding GoToSignUpCommand}" HorizontalOptions="FillAndExpand" />
     </StackLayout>
 
 </ContentPage>

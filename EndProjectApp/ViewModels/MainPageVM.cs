@@ -28,9 +28,15 @@ namespace EndProjectApp.ViewModels
             Page p = new NavigationPage(new Views.LoginPage());
             App.Current.MainPage = p;
         }
+        public void SignUp()
+        {
+            Page p = new NavigationPage(new Views.SignUpPage());
+            App.Current.MainPage = p;
+        }
         public MainPageVM()
         {
             GoToLoginCommand = new Command(Login);
+            GoToSignupCommand = new Command(SignUp);
         }
     }
 }

@@ -109,8 +109,15 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
+        public async Task<bool> SignUpAsync(User u)
+        {
+            string userJson = JsonSerializer.Serialize(u);
+            StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUp", stringContent);
+            return response.IsSuccessStatusCode;
+        }
 
-       
+
 
         //Upload file to server (only images!)
         //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)

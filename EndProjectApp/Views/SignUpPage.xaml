@@ -8,7 +8,7 @@
             <Entry Placeholder="Email" Text="{Binding Email}"/>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
             <DatePicker Date="{Binding BirthDate}" />
-            <Button Text="SignUp" Command="{Binding Submit}" />
+            <Button Text="SignUp" Command="{Binding SubmitCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

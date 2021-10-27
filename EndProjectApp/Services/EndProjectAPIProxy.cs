@@ -95,7 +95,7 @@ namespace EndProjectApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    User u = JsonSerializer.Deserialize<User>(content, options);
+                    User u = JsonSerializer.Deserialize<User>(content, options); 
                     return u;
                 }
                 else
@@ -111,10 +111,17 @@ namespace EndProjectApp.Services
         }
         public async Task<bool> SignUpAsync(User u)
         {
-            string userJson = JsonSerializer.Serialize(u);
-            StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUp", stringContent);
-            return response.IsSuccessStatusCode;
+            try
+            {
+                string userJson = JsonSerializer.Serialize(u);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUp", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
 

@@ -26,12 +26,12 @@ namespace EndProjectApp.ViewModels
         public void Login ()
         {
             Page p = new NavigationPage(new Views.LoginPage());
-            App.Current.MainPage = p;
+            App.Current.MainPage.Navigation.PushAsync(p);
         }
         public void SignUp()
         {
             Page p = new NavigationPage(new Views.SignUpPage());
-            App.Current.MainPage = p;
+            App.Current.MainPage.Navigation.PushAsync(p);
         }
         public MainPageVM()
         {

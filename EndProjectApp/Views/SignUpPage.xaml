@@ -4,7 +4,7 @@
              x:Class="EndProjectApp.Views.SignUpPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Placeholder="UserName" Text="{Binding UserNmae}" />
+            <Entry Placeholder="UserName" Text="{Binding UserName}" />
             <Entry Placeholder="Email" Text="{Binding Email}"/>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
             <DatePicker Date="{Binding BirthDate}" />

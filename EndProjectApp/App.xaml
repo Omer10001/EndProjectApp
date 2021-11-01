@@ -9,7 +9,7 @@
                     <Setter Property="FontSize" Value="Small" />
                 </Style>
                 <Style x:Key="labelErrorStyle" TargetType="Label">
-                    <Setter Property="HorizontalOptions" Value="End" />
+                    <Setter Property="HorizontalOptions" Value="Start" />
                     <Setter Property="TextColor" Value="Red" />
                     <Setter Property="FontSize" Value="Small" />
                 </Style>

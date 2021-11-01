@@ -4,9 +4,13 @@
              x:Class="EndProjectApp.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Email:" />
+            <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle}"/>
             <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
                            Keyboard="Email"                            />
-            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"                        />
+            <Label Text="Password:" Style="{StaticResource labelNameStyle}" />
+            <Label   Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}"/> 
+            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"  IsPassword="True"                       />
             <Button Text="Login" Command="{Binding SubmitCommand}" />
         </StackLayout>
     </ContentPage.Content>

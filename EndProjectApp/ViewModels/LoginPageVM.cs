@@ -29,6 +29,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 email = value;
+                ValidateEmail();
                 OnPropertyChanged("Email");
             }
         }
@@ -42,35 +43,105 @@ namespace EndProjectApp.ViewModels
                 OnPropertyChanged("Password");
             }
         }
+        private string emailError;
+        public string EmailError
+        {
+            get { return emailError; }
+            set
+            {
+                emailError = value;
+                OnPropertyChanged("EmailError");
+            }
+        }
+        private string passwordError;
+        public string PasswordError
+        {
+            get { return passwordError; }
+            set
+            {
+                passwordError = value;
+                OnPropertyChanged("PasswordError");
+            }
+        }
+        private bool showEmailError;
+        public bool ShowEmailError
+        {
+            get { return showEmailError; }
+            set
+            {
+                showEmailError = value;
+                OnPropertyChanged("ShowEmailError");
+            }
+        }
+        private bool showPasswordError;
+        public bool ShowPasswordError
+        {
+            get { return showPasswordError; }
+            set
+            {
+                showPasswordError = value;
+                OnPropertyChanged("ShowPasswordError");
+            }
+        }
         public ICommand SubmitCommand { protected set; get; }
 
         public LoginPageVM()
         {
             SubmitCommand = new Command(OnSubmit);
+            ShowPasswordError = false;
+            ShowEmailError = false;
+            EmailError = "please put email";
+            PasswordError = "Please put password";
+        }
+        private void ValidateEmail()
+        {
+            ShowEmailError = string.IsNullOrEmpty(Email);
+        }
+        private void ValidatePassword()
+        {
+            ShowPasswordError = string.IsNullOrEmpty(Password);
+        }
+        private bool ValidateForm()
+        {
+            ValidateEmail();
+            ValidatePassword();
+
+            if (showEmailError || showPasswordError)
+                return false;
+            else
+                return true;
+                
         }
         public async void OnSubmit()
         {
 
-
-            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            User user = await proxy.LoginAsync(Email, Password);
-            if (user == null)
+            if(!ValidateForm())
             {
-
-                await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
+                await App.Current.MainPage.DisplayAlert("Error", "There is an issue with the informaion, please make sure...", "Okey");
             }
             else
             {
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                User user = await proxy.LoginAsync(Email, Password);
+                if (user == null)
+                {
 
-                App theApp = (App)App.Current;
-                theApp.CurrentUser = user;
+                    await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
+                }
+                else
+                {
 
-                Page p = new NavigationPage(new Views.AcountPage());
-                App.Current.MainPage = p;
+                    App theApp = (App)App.Current;
+                    theApp.CurrentUser = user;
+
+                    Page p = new NavigationPage(new Views.AcountPage());
+                    App.Current.MainPage = p;
 
 
 
+                }
             }
+           
         }
     }
 }

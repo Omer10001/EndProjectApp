@@ -90,16 +90,19 @@ namespace EndProjectApp.ViewModels
             SubmitCommand = new Command(OnSubmit);
             ShowPasswordError = false;
             ShowEmailError = false;
-            EmailError = "please put email";
-            PasswordError = "Please put password";
+           
         }
         private void ValidateEmail()
         {
             ShowEmailError = string.IsNullOrEmpty(Email);
+            if(showEmailError)
+            EmailError = "please put email";
         }
         private void ValidatePassword()
         {
             ShowPasswordError = string.IsNullOrEmpty(Password);
+            if (showPasswordError)
+            PasswordError = "Please put password";
         }
         private bool ValidateForm()
         {

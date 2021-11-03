@@ -52,6 +52,16 @@ namespace EndProjectApp.ViewModels
                 OnPropertyChanged("ShowPasswordError");
             }
         }
+        private bool showBirthdateError;
+        public bool ShowBirthdateError
+        {
+            get { return showBirthdateError; }
+            set
+            {
+                showBirthdateError = value;
+                OnPropertyChanged("ShowBirthdateError");
+            }
+        }
         private string emailError;
         public string EmailError
         {
@@ -82,6 +92,16 @@ namespace EndProjectApp.ViewModels
                 OnPropertyChanged("PasswordError");
             }
         }
+        private string birthdateError;
+        public string BirthdateError
+        {
+            get { return birthdateError; }
+            set
+            {
+                birthdateError = value;
+                OnPropertyChanged("BirthdateError");
+            }
+        }
         private void ValidateEmail()
         {
             ShowEmailError = string.IsNullOrEmpty(Email);
@@ -98,15 +118,32 @@ namespace EndProjectApp.ViewModels
         {
             ShowUserNameError = string.IsNullOrEmpty(UserName);
             if (showUserNameError)
-                userNameError = "please put userName";
+                UserNameError = "please put userName";
+        }
+        private void ValidateBirthdate()
+        {
+            if (Birthdate.AddYears(13) > DateTime.Now)
+            {
+                BirthdateError = "you must be older than 13";
+                ShowBirthdateError = true;
+            }
+            else if (Birthdate.AddYears(100) < DateTime.Now)
+            {
+                BirthdateError = "please put a valid date";
+                ShowBirthdateError = true;
+            }
+            else
+                ShowBirthdateError = false;
+            
         }
         private bool ValidateForm()
         {
             ValidateEmail();
             ValidatePassword();
             ValidateUserName();
+            ValidateBirthdate();
 
-            if (showEmailError || showPasswordError || showUserNameError)
+            if (showEmailError || showPasswordError || showUserNameError|| showBirthdateError)
                 return false;
             else
                 return true;
@@ -120,6 +157,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 userName = value;
+                ValidateUserName();
                 OnPropertyChanged("UserName");
             }
         }
@@ -130,6 +168,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 email = value;
+                ValidateEmail();
                 OnPropertyChanged("Email");
             }
         }
@@ -140,6 +179,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 password = value;
+                ValidatePassword();
                 OnPropertyChanged("Password");
             }
         }
@@ -150,6 +190,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 birthdate = value;
+                ValidateBirthdate();
                 OnPropertyChanged("Birthdate");
             }
         }

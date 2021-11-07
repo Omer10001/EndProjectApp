@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EndProjectApp.Views.SignUpPage">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+            <StackLayout>
             <Label Text="{Binding UserNameError}" IsVisible="{Binding ShowUserNameError}" Style= "{DynamicResource labelErrorStyle}"/>
             <Entry Placeholder="UserName" Text="{Binding UserName}" />
             <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style= "{DynamicResource labelErrorStyle}"/>
@@ -13,8 +14,9 @@
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
             <Label Text="{Binding BirthdateError}" IsVisible="{Binding ShowBirthdateError}" Style= "{DynamicResource labelErrorStyle}" />
             <Label Text="Birthdate:" />
-            <DatePicker Date="{Binding BirthDate}" />
+            <DatePicker Date="{Binding Birthdate}" />
             <Button Text="SignUp" Command="{Binding SubmitCommand}" />
         </StackLayout>
+            </ScrollView>
     </ContentPage.Content>
 </ContentPage>

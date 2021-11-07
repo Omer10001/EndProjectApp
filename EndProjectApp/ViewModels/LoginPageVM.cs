@@ -40,6 +40,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 password = value;
+                ValidatePassword();
                 OnPropertyChanged("Password");
             }
         }

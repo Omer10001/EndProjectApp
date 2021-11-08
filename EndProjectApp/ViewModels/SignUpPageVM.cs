@@ -104,7 +104,7 @@ namespace EndProjectApp.ViewModels
         }
         private void ValidateEmail()
         {
-            ShowEmailError = string.IsNullOrEmpty(Email);
+            ShowEmailError = string.IsNullOrEmpty(Email)  ;
             if (showEmailError)
                 EmailError = "please put email";
         }

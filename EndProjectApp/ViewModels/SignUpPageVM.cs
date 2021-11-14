@@ -110,15 +110,35 @@ namespace EndProjectApp.ViewModels
         }
         private void ValidatePassword()
         {
-            ShowPasswordError = string.IsNullOrEmpty(Password);
-            if (showPasswordError)
-                PasswordError = "Please put password";
+            if (string.IsNullOrEmpty(Password))
+            {
+                ShowPasswordError = true;
+                PasswordError = "please put Password";
+            }
+            else if (Password.Length < 6 )
+            {
+                ShowUserNameError = true;
+                UserNameError = "Password must be at least 6 characters long";
+            }
+            else
+                ShowUserNameError = false;
         }
         private void ValidateUserName()
         {
-            ShowUserNameError = string.IsNullOrEmpty(UserName);
-            if (showUserNameError)
-                UserNameError = "please put userName";
+           
+            if (string.IsNullOrEmpty(UserName))
+            {
+                ShowUserNameError = true;
+                UserNameError = "please put Username";
+            }
+            else if (UserName.Length < 3 || UserName.Length > 20)
+            {
+                ShowUserNameError = true;
+                UserNameError = "Username must be between 3 to 20 characters long";
+            }
+            else
+                ShowUserNameError = false;
+       
         }
         private void ValidateBirthdate()
         {
@@ -194,7 +214,7 @@ namespace EndProjectApp.ViewModels
                 OnPropertyChanged("Birthdate");
             }
         }
-        public async void Submit()
+        private async void Submit()
         {
             if (ValidateForm())
             {
@@ -215,7 +235,7 @@ namespace EndProjectApp.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Error", "SignUp Failed, make sure all fields are good", "Okey");
+                await App.Current.MainPage.DisplayAlert("Error", "SignUp Failed, make sure all fields are good", "Okay");
             }
         }
         public ICommand SubmitCommand { protected set; get; }

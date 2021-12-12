@@ -26,6 +26,7 @@ namespace EndProjectApp.ViewModels
         public void Login ()
         {
             Page p = new NavigationPage(new Views.LoginPage());
+            p.Title = "login";
             App.Current.MainPage.Navigation.PushAsync(p);
         }
         public void SignUp()

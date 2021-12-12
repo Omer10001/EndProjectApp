@@ -123,6 +123,10 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
+        public async Task<List<Post>> GetAllPostsAsync()
+        {
+
+        }
 
 
 

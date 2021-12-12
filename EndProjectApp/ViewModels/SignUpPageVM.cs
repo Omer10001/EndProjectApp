@@ -230,7 +230,7 @@ namespace EndProjectApp.ViewModels
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", "SignUp Failed", "Okey");
+                    await App.Current.MainPage.DisplayAlert("Error", "SignUp Failed", "Okay");
                 }
             }
             else

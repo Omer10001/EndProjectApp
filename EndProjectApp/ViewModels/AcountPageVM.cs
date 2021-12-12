@@ -52,7 +52,7 @@ namespace EndProjectApp.ViewModels
         private async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            List<Post> p = await proxy.GetAllPostssAsync();
+            List<Post> p = await proxy.GetAllPostsAsync();
             foreach (Post post in p)
             {
                 PostList.Add(post);

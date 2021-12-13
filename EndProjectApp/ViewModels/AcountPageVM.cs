@@ -23,40 +23,6 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        private bool isRefresh;
-        public ObservableCollection<Post> PostList { get; set; }
-        public bool IsRefresh
-        {
-            get { return isRefresh; }
-            set
-            {
-                if (IsRefresh != value)
-                {
-                    isRefresh = value;
-                    OnPropertyChanged("IsRefresh");
-                }
-            }
-        }
-
-        public AcountPageVM()
-        {
-            PostList = new ObservableCollection<Post>();
-            
-            CreatePostList();
-            
-
-
-           
-            isRefresh = false;
-        }
-        private async void CreatePostList()
-        {
-            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            List<Post> p = await proxy.GetAllPostsAsync();
-            foreach (Post post in p)
-            {
-                PostList.Add(post);
-            }
-        }
+        
     }
 }

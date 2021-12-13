@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using EndProjectApp.Services;
 using EndProjectApp.Models;
+using System.Collections.ObjectModel;
 using Xamarin.Essentials;
 using System.Linq;
 namespace EndProjectApp.ViewModels
@@ -20,24 +21,40 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        public ICommand GoToLoginCommand { protected set; get; }
-        public ICommand GoToSignupCommand { protected set; get; }
+        private bool isRefresh;
+        public ObservableCollection<Post> PostList { get; set; }
+        public bool IsRefresh
+        {
+            get { return isRefresh; }
+            set
+            {
+                if (IsRefresh != value)
+                {
+                    isRefresh = value;
+                    OnPropertyChanged("IsRefresh");
+                }
+            }
+        }
 
-        public void Login ()
-        {
-            Page p = new NavigationPage(new Views.LoginPage());
-            p.Title = "login";
-            App.Current.MainPage.Navigation.PushAsync(p);
-        }
-        public void SignUp()
-        {
-            Page p = new NavigationPage(new Views.SignUpPage());
-            App.Current.MainPage.Navigation.PushAsync(p);
-        }
         public MainPageVM()
         {
-            GoToLoginCommand = new Command(Login);
-            GoToSignupCommand = new Command(SignUp);
+            PostList = new ObservableCollection<Post>();
+
+            CreatePostList();
+
+
+
+
+            isRefresh = false;
+        }
+        private async void CreatePostList()
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            List<Post> p = await proxy.GetAllPostsAsync();
+            foreach (Post post in p)
+            {
+                PostList.Add(post);
+            }
         }
     }
 }

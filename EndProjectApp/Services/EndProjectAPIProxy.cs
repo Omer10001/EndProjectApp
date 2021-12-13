@@ -125,8 +125,32 @@ namespace EndProjectApp.Services
         }
         public async Task<List<Post>> GetAllPostsAsync()
         {
-
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/MainPage");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Post> posts = JsonSerializer.Deserialize<List<Post>>(content, options);
+                    return posts;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
+        
 
 
 
@@ -155,3 +179,4 @@ namespace EndProjectApp.Services
 
     }
 }
+

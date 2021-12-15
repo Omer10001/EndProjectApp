@@ -17,6 +17,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Title}" Grid.Column="1" Grid.Row="1"></Label>
 
 
                             </Grid>

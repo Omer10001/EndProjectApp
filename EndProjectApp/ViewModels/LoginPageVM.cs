@@ -118,33 +118,40 @@ namespace EndProjectApp.ViewModels
         }
         public async void OnSubmit()
         {
-
-            if(!ValidateForm())
+            try
             {
-                await App.Current.MainPage.DisplayAlert("Error", "There is an issue with the informaion, please make sure...", "Okey");
-            }
-            else
-            {
-                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                User user = await proxy.LoginAsync(Email, Password);
-                if (user == null)
+                if (!ValidateForm())
                 {
-
-                    await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
+                    await App.Current.MainPage.DisplayAlert("Error", "There is an issue with the informaion, please make sure...", "Okey");
                 }
                 else
                 {
+                    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                    User user = await proxy.LoginAsync(Email, Password);
+                    if (user == null)
+                    {
 
-                    App theApp = (App)App.Current;
-                    theApp.CurrentUser = user;
+                        await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
+                    }
+                    else
+                    {
 
-                    Page p = new NavigationPage(new Views.AcountPage());
-                    App.Current.MainPage = p;
+                        App theApp = (App)App.Current;
+                        theApp.CurrentUser = user;
+
+                        Page p = new NavigationPage(new Views.MainPage());
+                        App.Current.MainPage = p;
 
 
 
+                    }
                 }
             }
+            catch(Exception e)
+            {
+
+            }
+            
            
         }
     }

@@ -118,7 +118,7 @@ namespace EndProjectApp.ViewModels
             else if (Password.Length < 6 )
             {
                 ShowUserNameError = true;
-                UserNameError = "Password must be at least 6 characters long";
+                PasswordError = "Password must be at least 6 characters long";
             }
             else
                 ShowUserNameError = false;

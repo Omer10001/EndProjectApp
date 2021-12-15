@@ -47,13 +47,29 @@ namespace EndProjectApp.ViewModels
 
             isRefresh = false;
         }
+        public ICommand RefreshCommand => new Command(Refresh);
+
+        private void Refresh()
+        {
+            PostList.Clear();           
+            CreatePostList();
+
+            IsRefresh = false;
+        }
         private async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             List<Post> p = await proxy.GetAllPostsAsync();
-            foreach (Post post in p)
+            if (p != null)
             {
-                PostList.Add(post);
+                foreach (Post post in p)
+                {
+                    PostList.Add(post);
+                }
+            }
+            else
+            {
+
             }
         }
     }

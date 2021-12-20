@@ -29,6 +29,7 @@ namespace EndProjectApp.ViewModels
             set
             {
                 email = value;
+                ValidateEmail();
                 OnPropertyChanged("Email");
             }
         }
@@ -39,7 +40,48 @@ namespace EndProjectApp.ViewModels
             set
             {
                 password = value;
+                ValidatePassword();
                 OnPropertyChanged("Password");
+            }
+        }
+        private string emailError;
+        public string EmailError
+        {
+            get { return emailError; }
+            set
+            {
+                emailError = value;
+                OnPropertyChanged("EmailError");
+            }
+        }
+        private string passwordError;
+        public string PasswordError
+        {
+            get { return passwordError; }
+            set
+            {
+                passwordError = value;
+                OnPropertyChanged("PasswordError");
+            }
+        }
+        private bool showEmailError;
+        public bool ShowEmailError
+        {
+            get { return showEmailError; }
+            set
+            {
+                showEmailError = value;
+                OnPropertyChanged("ShowEmailError");
+            }
+        }
+        private bool showPasswordError;
+        public bool ShowPasswordError
+        {
+            get { return showPasswordError; }
+            set
+            {
+                showPasswordError = value;
+                OnPropertyChanged("ShowPasswordError");
             }
         }
         public ICommand SubmitCommand { protected set; get; }
@@ -47,30 +89,70 @@ namespace EndProjectApp.ViewModels
         public LoginPageVM()
         {
             SubmitCommand = new Command(OnSubmit);
+            ShowPasswordError = false;
+            ShowEmailError = false;
+           
+        }
+        private void ValidateEmail()
+        {
+            ShowEmailError = string.IsNullOrEmpty(Email);
+            if(showEmailError)
+            EmailError = "please put email";
+        }
+        private void ValidatePassword()
+        {
+            ShowPasswordError = string.IsNullOrEmpty(Password);
+            if (showPasswordError)
+            PasswordError = "Please put password";
+        }
+        private bool ValidateForm()
+        {
+            ValidateEmail();
+            ValidatePassword();
+
+            if (showEmailError || showPasswordError)
+                return false;
+            else
+                return true;
+                
         }
         public async void OnSubmit()
         {
+            try
+            {
+                if (!ValidateForm())
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "There is an issue with the informaion, please make sure...", "Okey");
+                }
+                else
+                {
+                    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                    User user = await proxy.LoginAsync(Email, Password);
+                    if (user == null)
+                    {
+
+                        await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
+                    }
+                    else
+                    {
+
+                        App theApp = (App)App.Current;
+                        theApp.CurrentUser = user;
+
+                        Page p = new NavigationPage(new Views.MainPage());
+                        App.Current.MainPage = p;
 
 
-            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            User user = await proxy.LoginAsync(Email, Password);
-            if (user == null)
+
+                    }
+                }
+            }
+            catch(Exception e)
             {
 
-                await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
             }
-            else
-            {
-
-                App theApp = (App)App.Current;
-                theApp.CurrentUser = user;
-
-                Page p = new NavigationPage(new Views.AcountPage());
-                App.Current.MainPage = p;
-
-
-
-            }
+            
+           
         }
     }
 }

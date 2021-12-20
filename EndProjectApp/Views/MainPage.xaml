@@ -1,11 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EndProjectApp.MainPage">
+             x:Class="EndProjectApp.Views.MainPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
+                <CollectionView ItemsSource="{Binding Posts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Title}" Grid.Column="1" Grid.Row="1"></Label>
 
-    <StackLayout>
-        <Button Text="Login" Command="{Binding GoToLoginCommand}" HorizontalOptions="FillAndExpand" />
-        <Button Text="SignUp" Command="{Binding GoToSignupCommand}" HorizontalOptions="FillAndExpand" />
-    </StackLayout>
 
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

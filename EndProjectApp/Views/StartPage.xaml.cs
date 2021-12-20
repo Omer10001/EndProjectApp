@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace EndProjectApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public partial class StartPage : ContentPage
     {
-        public MainPage()
+        public StartPage()
         {
-            this.BindingContext = new MainPageVM();
+            this.BindingContext = new StartPageVM();
             InitializeComponent();
         }
     }

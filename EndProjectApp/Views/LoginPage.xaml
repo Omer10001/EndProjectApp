@@ -1,13 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             NavigationPage.HasNavigationBar="False"
+            
+             Title="Login"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EndProjectApp.Views.LoginPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
-                           Keyboard="Email"                            />
-            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"                        />
-            <Button Text="Login" Command="{Binding SubmitCommand}" />
+        <ScrollView>
+            <StackLayout>
+                
+                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Email:" Grid.Column="0" Grid.Row="0"/>
+                <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"    
+                           Keyboard="Email"                    Grid.Column="0" Grid.Row="1"        />
+                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} " Grid.Column="0" Grid.Row="2"/>
+
+                <Label Text="Password:" Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"  IsPassword="True"    Grid.Column="0" Grid.Row="4"                   />
+                <Label   Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}" Grid.Column="0" Grid.Row="5"/>
+                <Button Text="Login" Command="{Binding SubmitCommand}" Grid.Column="0" Grid.Row="6"/>
+            </Grid>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

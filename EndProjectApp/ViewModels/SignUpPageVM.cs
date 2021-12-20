@@ -70,7 +70,7 @@ namespace EndProjectApp.ViewModels
             {
                 Page p = new NavigationPage(new Views.LoginPage());
 
-                App.Current.MainPage.Navigation.PushAsync(p);
+                await App.Current.MainPage.Navigation.PushAsync(p);
 
             }
             else

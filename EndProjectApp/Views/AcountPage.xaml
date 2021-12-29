@@ -4,6 +4,7 @@
              x:Class="EndProjectApp.Views.AcountPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label FontSize="Large"> </Label>
           
         </StackLayout>
             

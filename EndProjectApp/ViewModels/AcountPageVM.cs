@@ -89,7 +89,17 @@ namespace EndProjectApp.ViewModels
             else
                 ShowNewPasswordError = false;
         }
+        public AcountPageVM()
+        {
+            UserName = ((App)App.Current).CurrentUser.Name;
+            Email = ((App)App.Current).CurrentUser.Email;
+            DateCreated = ((App)App.Current).CurrentUser.DateCreated;
+            Birthdate = ((App)App.Current).CurrentUser.BirthDate;
+        }
+        public ICommand LogoutCommand { protected set; get; }
+        private async void Logout()
+        {
 
-
+        }
     }
 }

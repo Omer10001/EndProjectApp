@@ -95,11 +95,23 @@ namespace EndProjectApp.ViewModels
             Email = ((App)App.Current).CurrentUser.Email;
             DateCreated = ((App)App.Current).CurrentUser.DateCreated;
             Birthdate = ((App)App.Current).CurrentUser.BirthDate;
+            LogoutCommand = new Command(Logout);
         }
         public ICommand LogoutCommand { protected set; get; }
         private async void Logout()
         {
-
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            bool isFine = await proxy.LogoutAsync();
+            if(isFine)
+            {
+                ((App)App.Current).CurrentUser = null;
+                await App.Current.MainPage.DisplayAlert("success","Logout successful", "Okay");
+                await App.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
         }
     }
 }

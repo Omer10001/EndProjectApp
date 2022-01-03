@@ -150,7 +150,20 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
-        
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/Logout");
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+            
+
+        }
 
 
 

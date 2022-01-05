@@ -164,6 +164,23 @@ namespace EndProjectApp.Services
             
 
         }
+        public async Task<bool> ChangePasswordAsync(string newPassword)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(newPassword);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/ChangePassword", stringContent);
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 
 

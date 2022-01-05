@@ -6,6 +6,10 @@
     <ContentPage.Content>
         <StackLayout>
             <Label FontSize="Large"> </Label>
+            <Entry Placeholder="Old Password" IsPassword="True" Text="{Binding Password}" />
+            <Entry Placeholder="New Password" IsPassword="True" Text="{Binding NewPassword}" />
+            <Label Text="{Binding NewPasswordError}" IsVisible="{Binding ShowNewPasswordError}" Style= "{DynamicResource labelErrorStyle}"/>
+            <Button Command="{Binding ChangePasswordCommand}"></Button>
             <Button Command="{Binding LogoutCommand}"></Button>
           
         </StackLayout>

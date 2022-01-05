@@ -76,12 +76,12 @@ namespace EndProjectApp.ViewModels
         }
         private void ValidateNewPassword()
         {
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(NewPassword))
             {
                 ShowNewPasswordError = true;
                 NewPasswordError = "please put Password";
             }
-            else if (Password.Length < 6)
+            else if (NewPassword.Length < 6)
             {
                 ShowNewPasswordError = true;
                 NewPasswordError = "Password must be at least 6 characters long";
@@ -96,6 +96,7 @@ namespace EndProjectApp.ViewModels
             DateCreated = ((App)App.Current).CurrentUser.DateCreated;
             Birthdate = ((App)App.Current).CurrentUser.BirthDate;
             LogoutCommand = new Command(Logout);
+            ChangePasswordCommand = new Command(ChangePassword);
         }
         public ICommand LogoutCommand { protected set; get; }
         private async void Logout()
@@ -113,5 +114,38 @@ namespace EndProjectApp.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
             }
         }
+        public ICommand ChangePasswordCommand { protected set; get; }
+        public async void ChangePassword()
+        {
+            ValidateNewPassword();
+            if (!showNewPasswordError)
+            {
+                if(password != ((App)App.Current).CurrentUser.Password)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Password doesn't match", "Okay");
+                    return;
+                }
+                else
+                {
+                    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                    bool isFine = await proxy.ChangePasswordAsync(newPassword);
+                    if (isFine)
+                    {
+                        await App.Current.MainPage.DisplayAlert("success", "Password Changed succesfully", "Okay");
+                        NewPassword = "";
+                        Password = "";
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("error", "A problem has occourred, try again later", "Okay");
+                    }
+                        
+                }
+               
+                
+            }
+            
+        }
     }
+
 }

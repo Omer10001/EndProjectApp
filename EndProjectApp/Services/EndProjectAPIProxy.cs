@@ -182,6 +182,20 @@ namespace EndProjectApp.Services
             }
         }
 
+        public async Task<bool> AddTagAsync(Tag t)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(t);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddTag", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
 
         //Upload file to server (only images!)

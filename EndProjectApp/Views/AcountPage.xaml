@@ -4,15 +4,22 @@
              x:Class="EndProjectApp.Views.AcountPage">
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label FontSize="Large"> </Label>
+        <ScrollView>
+            <StackLayout>
+            <Label FontSize="Large" Text="Change Password"> </Label>
             <Entry Placeholder="Old Password" IsPassword="True" Text="{Binding Password}" />
             <Entry Placeholder="New Password" IsPassword="True" Text="{Binding NewPassword}" />
             <Label Text="{Binding NewPasswordError}" IsVisible="{Binding ShowNewPasswordError}" Style= "{DynamicResource labelErrorStyle}"/>
-            <Button Command="{Binding ChangePasswordCommand}"></Button>
-            <Button Command="{Binding LogoutCommand}"></Button>
-          
+            <Button Command="{Binding ChangePasswordCommand}" Text="Change Password"></Button>
+            <Label FontSize="Large" Text="LogOut"></Label>
+            <Button Command="{Binding LogoutCommand}" Text="Log Out"></Button>
+
+            <Label Text="Admin Stuff" FontSize="Large" IsVisible="{Binding IsAdmin}"></Label>
+                <Label Text="Add New Tag" IsVisible="{Binding IsAdmin}"></Label>
+            <Entry Placeholder="Tag Name" Text="{Binding TagName}" IsVisible="{Binding IsAdmin}"></Entry>
+            <Button Command="{Binding AddTagCommand}" Text="Add tag" IsVisible="{Binding IsAdmin}" ></Button>
+
         </StackLayout>
-            
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

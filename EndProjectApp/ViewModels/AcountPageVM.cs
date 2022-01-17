@@ -97,6 +97,8 @@ namespace EndProjectApp.ViewModels
             Birthdate = ((App)App.Current).CurrentUser.BirthDate;
             LogoutCommand = new Command(Logout);
             ChangePasswordCommand = new Command(ChangePassword);
+            IsAdmin = ((App)App.Current).CurrentUser.IsAdmin;
+            AddTagCommand = new Command(AddTag);
         }
         public ICommand LogoutCommand { protected set; get; }
         private async void Logout()
@@ -145,6 +147,42 @@ namespace EndProjectApp.ViewModels
                 
             }
             
+        }
+
+
+        //admin stuff
+        public bool IsAdmin { get; set; }
+
+        public ICommand AddTagCommand { protected set; get; }
+        public string TagName
+        {
+            get { return tagName; }
+            set
+            {
+                tagName = value;
+               
+                OnPropertyChanged("TagName");
+            }
+        }
+        private string tagName;
+        public async void AddTag()
+        {
+            try
+            {
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                Tag t = new Tag { Name = TagName };
+                bool isFine = await proxy.AddTagAsync(t);
+                if(isFine)
+                    await App.Current.MainPage.DisplayAlert("Success", "Tag added successfully", "Okay");
+                else 
+                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+
+
+            }
+            catch
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
         }
     }
 

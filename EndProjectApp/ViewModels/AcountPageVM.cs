@@ -99,6 +99,7 @@ namespace EndProjectApp.ViewModels
             ChangePasswordCommand = new Command(ChangePassword);
             IsAdmin = ((App)App.Current).CurrentUser.IsAdmin;
             AddTagCommand = new Command(AddTag);
+            AddGameCommand = new Command(AddGame);
         }
         public ICommand LogoutCommand { protected set; get; }
         private async void Logout()
@@ -175,6 +176,48 @@ namespace EndProjectApp.ViewModels
                 if(isFine)
                     await App.Current.MainPage.DisplayAlert("Success", "Tag added successfully", "Okay");
                 else 
+                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+
+
+            }
+            catch
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
+        }
+        public ICommand AddGameCommand { protected set; get; }
+        private string gameName;
+        public string GameName
+        {
+            get { return gameName; }
+            set
+            {
+                gameName = value;
+
+                OnPropertyChanged("GameName");
+            }
+        }
+        private string gameDescription;
+        public string GameDescription
+        {
+            get { return gameDescription; }
+            set
+            {
+                gameDescription = value;
+
+                OnPropertyChanged("GameDescription");
+            }
+        }
+        public async void AddGame()
+        {
+            try
+            {
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                Topic t = new Topic { Name = TagName , AboutText = gameDescription };
+                bool isFine = await proxy.AddGameAsync(t);
+                if (isFine)
+                    await App.Current.MainPage.DisplayAlert("Success", "Game added successfully", "Okay");
+                else
                     await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
 
 

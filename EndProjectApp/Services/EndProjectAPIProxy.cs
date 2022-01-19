@@ -95,7 +95,7 @@ namespace EndProjectApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    User u = JsonSerializer.Deserialize<User>(content, options); 
+                    User u = JsonSerializer.Deserialize<User>(content, options);
                     return u;
                 }
                 else
@@ -118,7 +118,7 @@ namespace EndProjectApp.Services
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/SignUp", stringContent);
                 return response.IsSuccessStatusCode;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -161,7 +161,7 @@ namespace EndProjectApp.Services
             {
                 return false;
             }
-            
+
 
         }
         public async Task<bool> ChangePasswordAsync(string newPassword)
@@ -195,32 +195,47 @@ namespace EndProjectApp.Services
             {
                 return false;
             }
+
         }
+        public async Task<bool> AddGameAsync(Topic t)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(t);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddGame", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
 
-        //Upload file to server (only images!)
-        //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
-        //{
-        //    try
-        //    {
-        //        var multipartFormDataContent = new MultipartFormDataContent();
-        //        var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
-        //        multipartFormDataContent.Add(fileContent, "file", targetFileName);
-        //        HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //            return false;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        return false;
-        //    }
-        //}
+            //Upload file to server (only images!)
+            //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+            //{
+            //    try
+            //    {
+            //        var multipartFormDataContent = new MultipartFormDataContent();
+            //        var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
+            //        multipartFormDataContent.Add(fileContent, "file", targetFileName);
+            //        HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            return true;
+            //        }
+            //        else
+            //            return false;
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.Message);
+            //        return false;
+            //    }
+            //}
 
+        }
     }
 }
 

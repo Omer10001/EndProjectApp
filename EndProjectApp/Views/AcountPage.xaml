@@ -18,8 +18,8 @@
                 <Label Text="Add New Tag" IsVisible="{Binding IsAdmin}"></Label>
             <Entry Placeholder="Tag Name" Text="{Binding TagName}" IsVisible="{Binding IsAdmin}"></Entry>
             <Button Command="{Binding AddTagCommand}" Text="Add tag" IsVisible="{Binding IsAdmin}" ></Button>
+                
 
-             
                 <Label Text="Add New Game" IsVisible="{Binding IsAdmin}"></Label>
                 <Entry Placeholder="Game Name" Text="{Binding GameName}" IsVisible="{Binding IsAdmin}"></Entry>
                 <Entry Placeholder="Game Description" Text="{Binding GameDescription}" IsVisible="{Binding IsAdmin}"></Entry>

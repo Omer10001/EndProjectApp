@@ -213,10 +213,15 @@ namespace EndProjectApp.ViewModels
             try
             {
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                Topic t = new Topic { Name = TagName , AboutText = gameDescription };
+                Topic t = new Topic { Name = GameName , AboutText = gameDescription };
                 bool isFine = await proxy.AddGameAsync(t);
                 if (isFine)
+                {
                     await App.Current.MainPage.DisplayAlert("Success", "Game added successfully", "Okay");
+                    GameName = null;
+                    GameDescription = null;
+                }
+                    
                 else
                     await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
 

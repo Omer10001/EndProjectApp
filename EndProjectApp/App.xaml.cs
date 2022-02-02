@@ -23,7 +23,7 @@ namespace EndProjectApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new StartPage());
+            MainPage = new NavigationPage(new CreatePostPage());
             CurrentUser = null;
         }
 

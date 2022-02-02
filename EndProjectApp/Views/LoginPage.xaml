@@ -30,8 +30,10 @@
                 <Label Text="Password:" Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />
                 <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"  IsPassword="True"    Grid.Column="0" Grid.Row="4"                   />
                 <Label   Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}" Grid.Column="0" Grid.Row="5"/>
-                <Button Text="Login" Command="{Binding SubmitCommand}" Grid.Column="0" Grid.Row="6"/>
-            </Grid>
+                   
+                        <Button Text="Login" Command="{Binding SubmitCommand}" Grid.Column="0" Grid.Row="6"/>
+                    
+                </Grid>
         </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -139,7 +139,7 @@ namespace EndProjectApp.ViewModels
                         App theApp = (App)App.Current;
                         theApp.CurrentUser = user;
 
-                        Page p = new Views.AcountPage();
+                        Page p = new Views.CreatePostPage();
                         await App.Current.MainPage.Navigation.PushAsync(p);
 
 

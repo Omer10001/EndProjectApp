@@ -4,7 +4,7 @@
              x:Class="EndProjectApp.Views.CreatePostPage">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Placeholder="" />
+            <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="" ItemDisplayBinding="{Binding Name}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

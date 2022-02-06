@@ -15,5 +15,40 @@ namespace EndProjectApp.ViewModels
 {
     class CreatePostPageVM
     {
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        public List<Topic> TopicList { get; set; }
+        public CreatePostPageVM()
+        {
+            TopicList = new List<Topic>();
+
+            CreateTopicList();
+
+
+
+
+            
+        }
+        private async void CreateTopicList()
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            List<Topic> t = await proxy.GetTopics();
+            if (t != null)
+            {
+                foreach (Topic topic in t)
+                {
+                    TopicList.Add(topic);
+                }
+            }
+            else
+            {
+
+            }
+        }
     }
 }

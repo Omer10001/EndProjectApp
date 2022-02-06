@@ -146,7 +146,7 @@ namespace EndProjectApp.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+               
                 return null;
             }
         }
@@ -260,6 +260,33 @@ namespace EndProjectApp.Services
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        public async Task<List<Topic>> GetTopics()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetTopics");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Topic> topics = JsonSerializer.Deserialize<List<Topic>>(content, options);
+                    return topics;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+
                 return null;
             }
         }

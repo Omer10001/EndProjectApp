@@ -22,17 +22,93 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        public List<Topic> TopicList { get; set; }
+       private Topic pickedTopic;
+        public Topic PickedTopic
+        {
+            get { return pickedTopic; }
+            set
+            {
+                pickedTopic = value;
+
+                OnPropertyChanged("PickedTopic");
+            }
+        }
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set
+            {
+                title = value;
+
+                OnPropertyChanged("Title");
+            }
+        }
+        private string text;
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+
+                OnPropertyChanged("Text");
+            }
+        }
+        private ObservableCollection<Topic> topicList;
+        public ObservableCollection<Topic> TopicList
+        {
+            get { return topicList; }
+            set
+            {
+                topicList = value;
+
+                OnPropertyChanged("TopicList");
+            }
+        }
+        public ICommand CreatePostCommand { protected set; get; }
         public CreatePostPageVM()
         {
-            TopicList = new List<Topic>();
+            TopicList = new ObservableCollection<Topic>();
 
             CreateTopicList();
-
+            CreatePostCommand = new Command(CreatePost);
 
 
 
             
+        }
+        public async void CreatePost()
+        {
+            try
+            {
+                Post p = new Post
+                {
+                    TopicId = pickedTopic.Id,
+                    NumOfLikes = 0,
+                    Text = text,
+                    TimeCreated = DateTime.Now,
+                    Title = title,
+                    UserId = ((App)App.Current).CurrentUser.Id,
+
+
+
+
+
+
+                };
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                bool fine = await proxy.CreatePostAsync(p);
+                if (fine)
+                    await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
+                else
+                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
+            catch(Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
+           
         }
         private async void CreateTopicList()
         {
@@ -42,7 +118,7 @@ namespace EndProjectApp.ViewModels
             {
                 foreach (Topic topic in t)
                 {
-                    TopicList.Add(topic);
+                    topicList.Add(topic);
                 }
             }
             else

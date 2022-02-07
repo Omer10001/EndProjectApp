@@ -22,7 +22,20 @@ namespace EndProjectApp.ViewModels
         }
         #endregion
         private bool isRefresh;
-        public ObservableCollection<Post> PostList { get; set; }
+        private ObservableCollection<Post> postList;
+        public ObservableCollection<Post> PostList
+        {
+            get { return postList; }
+            set
+            {
+                if (PostList != value)
+                {
+                    postList = value;
+                    OnPropertyChanged("PostList");
+                }
+            }
+        }
+
         public bool IsRefresh
         {
             get { return isRefresh; }

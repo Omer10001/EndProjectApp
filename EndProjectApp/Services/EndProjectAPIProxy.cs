@@ -290,6 +290,20 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
+        public async Task<bool> CreatePostAsync(Post p)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(p);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/CreatePost", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
 }

@@ -4,7 +4,11 @@
              x:Class="EndProjectApp.Views.CreatePostPage">
     <ContentPage.Content>
         <StackLayout>
-            <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="" ItemDisplayBinding="{Binding Name}"/>
+            <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="{Binding PickedTopic}" ItemDisplayBinding="{Binding Name}"/>
+            <Entry Placeholder="Title" Text="{Binding Title}"  />
+            <Entry Placeholder="Text" Text="{Binding Text}" />
+            <Button Text="Create" Command="{Binding CreatePostCommand}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

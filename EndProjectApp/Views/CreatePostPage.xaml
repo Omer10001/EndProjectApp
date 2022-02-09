@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EndProjectApp.Views.CreatePostPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout >
             <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="{Binding PickedTopic}" ItemDisplayBinding="{Binding Name}"/>
             <Entry Placeholder="Title" Text="{Binding Title}"  />
-            <Entry Placeholder="Text" Text="{Binding Text}" />
-            <Button Text="Create" Command="{Binding CreatePostCommand}"/>
-
+            <Editor Placeholder="Text" Text="{Binding Text}" AutoSize="TextChanges"    />
+            <Button Text="Create" Command="{Binding CreatePostCommand}" />
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

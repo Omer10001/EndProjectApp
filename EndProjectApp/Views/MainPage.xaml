@@ -7,10 +7,10 @@
     <ContentPage.Content>
         <StackLayout>
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
-                <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView ItemsSource="{Binding PostList}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10">
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -23,10 +23,29 @@
 
 
                             </Grid>
+                            
                         </DataTemplate>
+                        
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                
             </RefreshView>
+            <Frame>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="1" Grid.Column="1" Command="GoToMain"  />
+                    <Button Text="2" Grid.Column="2" />
+                    <Button Text="3" Grid.Column="3" />
+                </Grid>
+               
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

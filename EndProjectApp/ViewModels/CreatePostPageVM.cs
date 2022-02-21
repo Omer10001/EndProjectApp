@@ -100,7 +100,13 @@ namespace EndProjectApp.ViewModels
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
                 bool fine = await proxy.CreatePostAsync(p);
                 if (fine)
+                {
                     await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
+                    Title = null;
+                    Text = null;
+                    PickedTopic = null;
+                }
+                   
                 else
                     await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
             }

@@ -10,25 +10,29 @@
                 <CollectionView ItemsSource="{Binding PostList}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                            <Frame>
+                                <Grid >
+                                <Grid.RowDefinitions >
+                                    <RowDefinition Height="20"  />
+                                    <RowDefinition Height="15" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  TextColor="Gray" FontSize="Small"></Label>
+                                
+                                    <Label Text="{Binding Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  TextColor="Gray" FontSize="Small"></Label>
                                 <Label Text="{Binding User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" TextColor="Gray" FontSize="Small" ></Label>
                                 <Label Text="{Binding TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" TextColor="Gray" FontSize="Small" ></Label>
-                                <Label Text="{Binding User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" ></Label>
-                                <Label Text="{Binding Title}" Grid.Column="1" Grid.Row="1"></Label>
+                             
+                                <Label Text="{Binding Title}" Grid.Column="0" Grid.Row="2" TextColor="Black"></Label>
+                             
 
 
                             </Grid>
-                            
+                            </Frame>
+
                         </DataTemplate>
                         
                     </CollectionView.ItemTemplate>

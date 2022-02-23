@@ -2,14 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               NavigationPage.HasBackButton="False"
-             x:Class="EndProjectApp.Views.MainPage">
+             xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+              xmlns:modals="clr-namespace:EndProjectApp.Models"
+             
+             x:Class="EndProjectApp.Views.MainPage" x:DataType="local:MainPageVM">
     
     <ContentPage.Content>
         <StackLayout>
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
                 <CollectionView ItemsSource="{Binding PostList}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="modals:Post">
                             <Frame>
                                 <Grid >
                                 <Grid.RowDefinitions >
@@ -27,6 +30,7 @@
                                 <Label Text="{Binding TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" TextColor="Gray" FontSize="Small" ></Label>
                              
                                 <Label Text="{Binding Title}" Grid.Column="0" Grid.Row="2" TextColor="Black"></Label>
+                               
                              
 
 

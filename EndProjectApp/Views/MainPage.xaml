@@ -35,8 +35,8 @@
                                 <Label Text="{Binding TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
                                     <Label Text="{Binding Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                    <Button Grid.Row="3" Grid.Column="0"></Button>
-                                    <Label Grid.Row="3" Grid.Column="1"></Label>
+                                    <Button Grid.Row="3" Grid.Column="0" ></Button>
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding NumOfLikes}"></Label>
                                     <Button Grid.Row="3" Grid.Column="2"></Button>
                                     <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
 

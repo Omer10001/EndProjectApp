@@ -102,9 +102,9 @@ namespace EndProjectApp.ViewModels
                 if (fine)
                 {
                     await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
-                    Title = null;
-                    Text = null;
-                    PickedTopic = null;
+                    Title = "";
+                    Text = "";
+                    
                 }
                    
                 else

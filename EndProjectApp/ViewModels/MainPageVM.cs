@@ -120,6 +120,11 @@ namespace EndProjectApp.ViewModels
 
             IsRefresh = false;
         }
+        public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
+        private void GoToPostPage(Post p)
+        {
+
+        }
         private async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();

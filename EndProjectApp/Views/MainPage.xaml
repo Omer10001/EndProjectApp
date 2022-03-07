@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <StackLayout>
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
-                <CollectionView ItemsSource="{Binding PostList}">
+                <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                            ItemSpacing="20" />

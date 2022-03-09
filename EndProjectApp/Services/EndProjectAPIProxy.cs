@@ -304,6 +304,23 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
+        public async Task<bool> LikePost(Post p)
+        {
+            try
+            {
+                if()
+                string userJson = JsonSerializer.Serialize(p);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/LikePost", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+            
+        
 
     }
 }

@@ -32,6 +32,7 @@ namespace EndProjectApp.ViewModels
                 {
                     postList = value;
                     OnPropertyChanged("PostList");
+                    
                 }
             }
         }
@@ -120,16 +121,20 @@ namespace EndProjectApp.ViewModels
 
             IsRefresh = false;
         }
-        public ICommand LikeCommand => new Command<Post>(Like);
-        private async void Like(Post p)
-        {
-            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            await proxy.LikePost();
-        }
+        //public ICommand LikeCommand => new Command<Post>(Like);
+        //private async void Like(Post p)
+        //{
+        //    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+        //    await proxy.LikePost();
+        //}
         public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
         private void GoToPostPage(Post p)
         {
-
+            Page pa = new NavigationPage(new Views.PostPage());
+            PostPageVM postPageVM = new PostPageVM();
+            postPageVM.Post = p;
+            pa.BindingContext = postPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
         }
         private async void CreatePostList()
         {

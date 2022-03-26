@@ -24,7 +24,7 @@
                 </Grid.RowDefinitions>
                 <Label Text="Email:" Grid.Column="0" Grid.Row="0"/>
                 <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"    
-                           Keyboard="Email"                    Grid.Column="0" Grid.Row="1"        />
+                           Keyboard="Email"                    Grid.Column="0" Grid.Row="1"    Style="{StaticResource entryStyle}"    />
                 <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} " Grid.Column="0" Grid.Row="2"/>
 
                 <Label Text="Password:" Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />

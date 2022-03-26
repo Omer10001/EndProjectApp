@@ -131,7 +131,7 @@ namespace EndProjectApp.ViewModels
                 ShowUserNameError = true;
                 UserNameError = "please put Username";
             }
-            else if (UserName.Length < 3 || UserName.Length > 20)
+            else if (UserName.Length < 2 || UserName.Length > 19)
             {
                 ShowUserNameError = true;
                 UserNameError = "Username must be between 3 to 20 characters long";
@@ -242,6 +242,7 @@ namespace EndProjectApp.ViewModels
         public SignUpPageVM()
         {
             SubmitCommand = new Command(Submit);
+            birthdate = new DateTime(2000, 1, 1);
         }
        
     }

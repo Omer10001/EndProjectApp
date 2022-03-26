@@ -16,7 +16,10 @@
                 <Style x:Key="entryStyle" TargetType="Entry">
                     <Setter Property="HorizontalOptions" Value="Fill" />
                 </Style>
-           </ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+              
+            </Style>
+        </ResourceDictionary>
         </Application.Resources>
 
        

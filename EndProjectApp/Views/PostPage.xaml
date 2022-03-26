@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EndProjectApp.Views.PostPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid >
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="20"  />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding Post.Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"  TextColor="Gray" FontSize="Small"></Label>
+                <Label Text="{Binding Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                <Label Text="{Binding Post.TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                <Label Text="{Binding Post.Text}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+
+                <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
+                <Button Grid.Row="4"  Grid.Column="0" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.LikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" CommandParameter="{Binding}" ></Button>
+                <Label Grid.Row="4" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
+                <Button Grid.Row="4" Grid.Column="2" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.DisLikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}"></Button>
+                <Label Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3"></Label>
+            </Grid>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

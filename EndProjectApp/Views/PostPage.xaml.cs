@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EndProjectApp.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EndProjectApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AcountPage : ContentPage
+    public partial class PostPage : ContentPage
     {
-        public AcountPage()
+        public PostPage()
         {
-            this.BindingContext = new AcountPageVM();
             InitializeComponent();
         }
     }

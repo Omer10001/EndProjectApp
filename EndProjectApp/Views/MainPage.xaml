@@ -1,35 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EndProjectApp.Views.MainPage">
+              NavigationPage.HasBackButton="False"
+             xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+              xmlns:modals="clr-namespace:EndProjectApp.Models"
+             
+             x:Class="EndProjectApp.Views.MainPage" x:Name="this" x:DataType="local:MainPageVM">
+    
     <ContentPage.Content>
         <StackLayout>
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
-                <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="20" />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
+                        <DataTemplate x:DataType="modals:Post">
+                            <Frame>
+                                <Grid >
+                                <Grid.RowDefinitions >
+                                    <RowDefinition Height="20"  />
+                                    <RowDefinition Height="15" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                                        <RowDefinition Height="25" />
+                                    </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Topic}" Grid.Column="1" Grid.Row="1"></Label>
-                                <Label Text="{Binding User.Name}" Grid.Column="1" Grid.Row="2"></Label>
-                                <Label Text="{Binding Title}" Grid.Column="1" Grid.Row="3"></Label>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="50" />
+                                    </Grid.ColumnDefinitions>
+                                
+                                    <Label Text="{Binding Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"  TextColor="Gray" FontSize="Small"></Label>
+                                <Label Text="{Binding User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                                <Label Text="{Binding TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+
+                                    <Label Text="{Binding Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
+                                    <Button Grid.Row="3"  Grid.Column="0" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.LikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" CommandParameter="{Binding}" ></Button>
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding NumOfLikes}"></Label>
+                                    <Button Grid.Row="3" Grid.Column="2" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.DisLikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}"></Button>
+                                    <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
 
 
-                            </Grid>
+
+
+
+                                </Grid>
+                            </Frame>
+
                         </DataTemplate>
+                        
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                
             </RefreshView>
-            <Button HorizontalOptions="End" VerticalOptions="End" IsEnabled="True"></Button>
+           
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

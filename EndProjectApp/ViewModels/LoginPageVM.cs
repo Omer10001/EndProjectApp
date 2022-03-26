@@ -139,8 +139,8 @@ namespace EndProjectApp.ViewModels
                         App theApp = (App)App.Current;
                         theApp.CurrentUser = user;
 
-                        Page p = new NavigationPage(new Views.MainPage());
-                        App.Current.MainPage = p;
+                        Page p = new Views.MainTabbedPage();
+                        await App.Current.MainPage.Navigation.PushAsync(p);
 
 
 

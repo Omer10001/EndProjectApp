@@ -21,8 +21,22 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        private ObservableCollection<Post> postList;
+        public ObservableCollection<Post> PostList
+        {
+            get { return postList; }
+            set
+            {
+                if (PostList != value)
+                {
+                    postList = value;
+                    OnPropertyChanged("PostList");
+                    
+                }
+            }
+        }
         private bool isRefresh;
-        public ObservableCollection<Post> PostList { get; set; }
         public bool IsRefresh
         {
             get { return isRefresh; }
@@ -35,7 +49,58 @@ namespace EndProjectApp.ViewModels
                 }
             }
         }
-
+        private bool isLiked;
+        public bool IsLiked
+        {
+            get { return isLiked; }
+            set
+            {
+                if (IsLiked != value)
+                {
+                    isLiked = value;
+                    OnPropertyChanged("IsLiked");
+                }
+            }
+        }
+        private bool isDisliked;
+        public bool IsDisliked
+        {
+            get { return isDisliked; }
+            set
+            {
+                if (IsDisliked != value)
+                {
+                    isDisliked = value;
+                    OnPropertyChanged("IsDisliked");
+                }
+            }
+        }
+        private Color likedColor;
+        public Color LikedColor
+        {
+            get { return likedColor; }
+            set
+            {
+                if (LikedColor != value)
+                {
+                    likedColor = value;
+                    OnPropertyChanged("LikedColor");
+                }
+            }
+        }
+        private Color dislikedColor;
+        public Color DislikedColor
+        {
+            get { return dislikedColor; }
+            set
+            {
+                if (DislikedColor != value)
+                {
+                    dislikedColor = value;
+                    OnPropertyChanged("DislikedColor");
+                }
+            }
+        }
         public MainPageVM()
         {
             PostList = new ObservableCollection<Post>();
@@ -55,6 +120,21 @@ namespace EndProjectApp.ViewModels
             CreatePostList();
 
             IsRefresh = false;
+        }
+        //public ICommand LikeCommand => new Command<Post>(Like);
+        //private async void Like(Post p)
+        //{
+        //    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+        //    await proxy.LikePost();
+        //}
+        public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
+        private void GoToPostPage(Post p)
+        {
+            Page pa = new NavigationPage(new Views.PostPage());
+            PostPageVM postPageVM = new PostPageVM();
+            postPageVM.Post = p;
+            pa.BindingContext = postPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
         }
         private async void CreatePostList()
         {

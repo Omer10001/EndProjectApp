@@ -152,5 +152,13 @@ namespace EndProjectApp.ViewModels
 
             }
         }
+        public ICommand GoToAccountCommand => new Command(GoToAccountPage);
+        private void GoToAccountPage()
+        {
+            Page p = new NavigationPage(new Views.AcountPage());
+            
+            p.BindingContext = new AcountPageVM();
+            App.Current.MainPage.Navigation.PushAsync(p);
+        }
     }
 }

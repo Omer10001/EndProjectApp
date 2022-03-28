@@ -39,9 +39,12 @@ namespace EndProjectApp.ViewModels
             get { return title; }
             set
             {
-                title = value;
+                if (title != value)
+                {
+                    title = value;
 
-                OnPropertyChanged("Title");
+                    OnPropertyChanged("Title");
+                }
             }
         }
         private string text;
@@ -50,9 +53,12 @@ namespace EndProjectApp.ViewModels
             get { return text; }
             set
             {
-                text = value;
+                if (text != value)
+                {
+                    text = value;
 
-                OnPropertyChanged("Text");
+                    OnPropertyChanged("Text");
+                }
             }
         }
         private ObservableCollection<Topic> topicList;
@@ -102,8 +108,8 @@ namespace EndProjectApp.ViewModels
                 if (fine)
                 {
                     await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
-                    Title = "";
-                    Text = "";
+                    Title = string.Empty;
+                    Text = string.Empty;
                     
                 }
                    

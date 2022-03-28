@@ -25,7 +25,7 @@ namespace EndProjectApp.DTO
         {
             Comments = new List<Comment>();
             TagsInPosts = new List<TagsInPost>();
-            LikeInPost = new LikesInPost { UserId = ((App)App.Current).CurrentUser.Id };
+            LikeInPost = new LikesInPost { UserId = ((App)App.Current).CurrentUser.Id , PostId = Id};
         }
 
     }

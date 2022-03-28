@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
+using EndProjectApp.DTO;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.IO;
@@ -123,7 +124,7 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-        public async Task<List<Post>> GetAllPostsAsync()
+        public async Task<List<PostDTO>> GetAllPostsAsync()
         {
             try
             {
@@ -136,7 +137,7 @@ namespace EndProjectApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    List<Post> posts = JsonSerializer.Deserialize<List<Post>>(content, options);
+                    List<PostDTO> posts = JsonSerializer.Deserialize<List<PostDTO>>(content, options);
                     return posts;
                 }
                 else
@@ -304,7 +305,7 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-        public async Task<bool> LikePost(Post p)
+        public async Task<bool> LikePost(PostDTO p)
         {
             try
             {

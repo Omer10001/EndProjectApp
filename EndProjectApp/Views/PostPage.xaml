@@ -27,10 +27,9 @@
                 <Label Text="{Binding Post.Text}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
                 <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                <Button Grid.Row="4"  Grid.Column="0" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.LikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" CommandParameter="{Binding}" ></Button>
+                <Button Grid.Row="4"  Grid.Column="0"  ></Button>
                 <Label Grid.Row="4" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                <Button Grid.Row="4" Grid.Column="2" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.DisLikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}"></Button>
-                <Label Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3"></Label>
+                <Button Grid.Row="4" Grid.Column="2" ></Button>
             </Grid>
             
         </StackLayout>

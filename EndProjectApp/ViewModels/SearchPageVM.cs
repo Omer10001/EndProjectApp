@@ -7,13 +7,11 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using EndProjectApp.Services;
 using EndProjectApp.Models;
-using System.Collections.ObjectModel;
 using Xamarin.Essentials;
 using System.Linq;
-
 namespace EndProjectApp.ViewModels
 {
-    class PostPageVM:INotifyPropertyChanged
+    class SearchPageVM:INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,9 +20,5 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        public Post Post
-        {
-            get;set;
-        }
     }
 }

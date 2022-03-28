@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using EndProjectApp.Services;
 using EndProjectApp.Models;
 using System.Collections.ObjectModel;
+using EndProjectApp.DTO;
 using Xamarin.Essentials;
 using System.Linq;
 namespace EndProjectApp.ViewModels
@@ -22,8 +23,8 @@ namespace EndProjectApp.ViewModels
         }
         #endregion
 
-        private ObservableCollection<Post> postList;
-        public ObservableCollection<Post> PostList
+        private ObservableCollection<PostDTO> postList;
+        public ObservableCollection<PostDTO> PostList
         {
             get { return postList; }
             set
@@ -103,7 +104,7 @@ namespace EndProjectApp.ViewModels
         }
         public MainPageVM()
         {
-            PostList = new ObservableCollection<Post>();
+            PostList = new ObservableCollection<PostDTO>();
 
             CreatePostList();
 
@@ -121,12 +122,49 @@ namespace EndProjectApp.ViewModels
 
             IsRefresh = false;
         }
-        //public ICommand LikeCommand => new Command<Post>(Like);
-        //private async void Like(Post p)
-        //{
-        //    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-        //    await proxy.LikePost();
-        //}
+        public ICommand LikeCommand => new Command<PostDTO>(Like);
+        private async void Like(PostDTO p)
+        {
+            if(p.LikeInPost.IsLiked)
+            {
+               
+                p.LikeInPost.IsLiked = false;
+                p.NumOfLikes--;
+            }
+            else
+            {
+                if (p.LikeInPost.IsDisliked)
+                {
+                    p.LikeInPost.IsDisliked = false;
+                    p.NumOfLikes++;
+                }
+                p.LikeInPost.IsLiked = true;
+                p.NumOfLikes++;
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            await proxy.LikePost(p);
+        }
+        public ICommand DislikeCommand => new Command<PostDTO>(Dislike);
+        private async void Dislike(PostDTO p)
+        {
+            if (p.LikeInPost.IsDisliked)
+            {
+                p.LikeInPost.IsDisliked = false;
+                p.NumOfLikes++;
+            }
+            else
+            {
+                if (p.LikeInPost.IsLiked)
+                {
+                    p.LikeInPost.IsLiked = false;
+                    p.NumOfLikes--;
+                }
+                p.LikeInPost.IsDisliked = true;
+                p.NumOfLikes--;
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            await proxy.LikePost(p);
+        }
         public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
         private void GoToPostPage(Post p)
         {
@@ -139,10 +177,10 @@ namespace EndProjectApp.ViewModels
         private async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            List<Post> p = await proxy.GetAllPostsAsync();
+            List<PostDTO> p = await proxy.GetAllPostsAsync();
             if (p != null)
             {
-                foreach (Post post in p)
+                foreach (PostDTO post in p)
                 {
                     PostList.Add(post);
                 }

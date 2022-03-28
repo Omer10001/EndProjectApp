@@ -308,7 +308,7 @@ namespace EndProjectApp.Services
         {
             try
             {
-                if()
+            
                 string userJson = JsonSerializer.Serialize(p);
                 StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/LikePost", stringContent);

@@ -4,7 +4,7 @@
               NavigationPage.HasBackButton="False"
              xmlns:local="clr-namespace:EndProjectApp.ViewModels"
               xmlns:modals="clr-namespace:EndProjectApp.Models"
-             
+             xmlns:DTO="clr-namespace:EndProjectApp.DTO"
              x:Class="EndProjectApp.Views.MainPage" x:Name="this" x:DataType="local:MainPageVM">
     
     <ContentPage.Content>
@@ -28,7 +28,7 @@
                            ItemSpacing="20" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="modals:Post">
+                        <DataTemplate x:DataType="DTO:PostDTO">
                             <Frame>
                                 <Grid >
                                 <Grid.RowDefinitions >
@@ -46,14 +46,14 @@
                                         <ColumnDefinition Width="50" />
                                     </Grid.ColumnDefinitions>
                                 
-                                    <Label Text="{Binding Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"  TextColor="Gray" FontSize="Small"></Label>
-                                <Label Text="{Binding User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                                <Label Text="{Binding TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                                    <Label Text="{Binding Post.Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"  TextColor="Gray" FontSize="Small"></Label>
+                                <Label Text="{Binding Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                                <Label Text="{Binding Post.TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
-                                    <Label Text="{Binding Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                    <Button Grid.Row="3"  Grid.Column="0" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.LikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" CommandParameter="{Binding}" ></Button>
-                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding NumOfLikes}"></Label>
-                                    <Button Grid.Row="3" Grid.Column="2" BackgroundColor="{Binding Source={x:Reference collectionName},Path=BindingContext.DisLikedColor}" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}"></Button>
+                                    <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
+                                    <Button Grid.Row="3" Grid.Column="0"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding LikeColor }" ></Button>
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
+                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" BackgroundColor="{Binding DislikeColor}"></Button>
                                     <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
 
 

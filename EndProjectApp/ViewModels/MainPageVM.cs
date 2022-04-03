@@ -130,7 +130,7 @@ namespace EndProjectApp.ViewModels
                
                 p.LikeInPost.IsLiked = false;
                 p.Post.NumOfLikes--;
-                p.LikeColor = Color.White;
+               
             }
             else
             {
@@ -138,11 +138,11 @@ namespace EndProjectApp.ViewModels
                 {
                     p.LikeInPost.IsDisliked = false;
                     p.Post.NumOfLikes++;
-                    p.DislikeColor = Color.White;
+                   
                 }
                 p.LikeInPost.IsLiked = true;
                 p.Post.NumOfLikes++;
-                p.LikeColor = Color.Red;
+               
             }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             await proxy.LikePost(p);
@@ -154,7 +154,7 @@ namespace EndProjectApp.ViewModels
             {
                 p.LikeInPost.IsDisliked = false;
                 p.Post.NumOfLikes++;
-                p.DislikeColor = Color.White;
+               
             }
             else
             {
@@ -162,11 +162,11 @@ namespace EndProjectApp.ViewModels
                 {
                     p.LikeInPost.IsLiked = false;
                     p.Post.NumOfLikes--;
-                    p.LikeColor = Color.White;
+                   
                 }
                 p.LikeInPost.IsDisliked = true;
                 p.Post.NumOfLikes--;
-                p.DislikeColor = Color.Blue;
+                
             }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             await proxy.LikePost(p);

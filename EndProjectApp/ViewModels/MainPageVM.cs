@@ -145,6 +145,7 @@ namespace EndProjectApp.ViewModels
                
             }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+        
             await proxy.LikePost(p);
         }
         public ICommand DislikeCommand => new Command<PostDTO>(Dislike);

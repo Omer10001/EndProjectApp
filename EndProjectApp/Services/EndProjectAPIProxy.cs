@@ -307,10 +307,20 @@ namespace EndProjectApp.Services
         }
         public async Task<bool> LikePost(PostDTO p)
         {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
+                
+                 
+                 
+
+            };
+
             try
             {
-               
-                string userJson = JsonSerializer.Serialize(p);
+                
+                string userJson = JsonSerializer.Serialize(p,options);
                 StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/LikePost", stringContent);
                 return response.IsSuccessStatusCode;

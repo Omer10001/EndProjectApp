@@ -53,7 +53,7 @@
                                     <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
                                     <Button Grid.Row="3" Grid.Column="0"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding LikeColor }" ></Button>
                                     <Label Grid.Row="3" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.RefreshCommand}" BackgroundColor="{Binding DislikeColor}"></Button>
+                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding DislikeColor}"></Button>
                                     <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
 
 

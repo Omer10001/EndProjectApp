@@ -131,6 +131,7 @@ namespace EndProjectApp.ViewModels
                 p.LikeInPost.IsLiked = false;
                 p.Post.NumOfLikes--;
                
+               
             }
             else
             {
@@ -147,6 +148,10 @@ namespace EndProjectApp.ViewModels
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
         
             await proxy.LikePost(p);
+            int index = PostList.IndexOf(p);
+            PostList.RemoveAt(index);
+            PostList.Insert(index, p);
+            
         }
         public ICommand DislikeCommand => new Command<PostDTO>(Dislike);
         private async void Dislike(PostDTO p)
@@ -171,6 +176,9 @@ namespace EndProjectApp.ViewModels
             }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             await proxy.LikePost(p);
+            int index = PostList.IndexOf(p);
+            PostList.RemoveAt(index);
+            PostList.Insert(index, p);
         }
         public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
         private void GoToPostPage(Post p)

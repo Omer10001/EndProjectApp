@@ -4,9 +4,10 @@
              x:Class="EndProjectApp.Views.SearchPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <SearchBar x:Name="searchBar" 
+                       Placeholder="Search" 
+                       Text="{Binding SearchTerm}"
+                       />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

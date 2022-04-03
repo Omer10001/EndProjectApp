@@ -9,6 +9,7 @@
             andorid:TabbedPage.ToolbarPlacement="Bottom">
     <local:MainPage Title="Main"/>
     <local:CreatePostPage Title="Create Post"> </local:CreatePostPage>
- 
-  
+    <local:SearchPage Title="Search "/>
+
+
 </TabbedPage>

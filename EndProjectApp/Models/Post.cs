@@ -11,6 +11,7 @@ namespace EndProjectApp.Models
         {
             Comments = new List<Comment>();
             TagsInPosts = new List<TagsInPost>();
+            LikesInPosts = new List<LikesInPost>();
         }
 
         public int Id { get; set; }
@@ -24,6 +25,7 @@ namespace EndProjectApp.Models
 
         public virtual Topic Topic { get; set; }
         public virtual User User { get; set; }
+        public virtual List<LikesInPost> LikesInPosts { get; set; }
         public virtual List<Comment> Comments { get; set; }
         public virtual List<TagsInPost> TagsInPosts { get; set; }
     }

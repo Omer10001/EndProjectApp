@@ -27,16 +27,16 @@ namespace EndProjectApp.ViewModels
         #endregion
         private List<Post> allPosts;
         
-        private ObservableCollection<PostDTO> filteredPosts;
-        public ObservableCollection<PostDTO> FilteredPosts
+        private ObservableCollection<PostDTO> filteredTopics;
+        public ObservableCollection<PostDTO> FilteredTopics
         {
-            get { return filteredPosts; }
+            get { return filteredTopics; }
             set
             {
-                if (FilteredPosts != value)
+                if (FilteredTopics != value)
                 {
-                    filteredPosts = value;
-                    OnPropertyChanged("FilteredPosts");
+                    filteredTopics = value;
+                    OnPropertyChanged("FilteredTopics");
 
                 }
             }

@@ -25,10 +25,10 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        private List<Post> allPosts;
         
-        private ObservableCollection<PostDTO> filteredTopics;
-        public ObservableCollection<PostDTO> FilteredTopics
+        
+        private ObservableCollection<Topic> filteredTopics;
+        public ObservableCollection<Topic> FilteredTopics
         {
             get { return filteredTopics; }
             set
@@ -40,6 +40,10 @@ namespace EndProjectApp.ViewModels
 
                 }
             }
+        }
+        public ObservableCollection<Topic> AllTopics
+        {
+            get; set;
         }
         private bool isRefresh;
         public bool IsRefresh
@@ -54,6 +58,85 @@ namespace EndProjectApp.ViewModels
                     OnPropertyChanged("IsRefresh");
                 }
             }
+        }
+        private string searchTerm;
+        public string SearchTerm
+        {
+            get { return searchTerm; }
+            set
+            {
+                if (SearchTerm != value)
+                {
+                    searchTerm = value;
+                    OnPropertyChanged("SearchTerm");
+                    Search();
+
+                }
+            }
+        }
+
+        public SearchPageVM()
+        {
+            CreateTopicList();
+            FilteredTopics = new ObservableCollection<Topic>();
+        }
+        public async void CreateTopicList()
+        {
+            AllTopics = new ObservableCollection<Topic>();
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            List<Topic> t = await proxy.GetAllTopicsAsync();
+            if (t != null)
+            {
+                foreach (Topic topic in t)
+                {
+                    AllTopics.Add(topic);
+                }
+            }
+            
+        }
+        public void Search()
+        {
+            if (this.AllTopics == null || String.IsNullOrWhiteSpace(SearchTerm) || String.IsNullOrEmpty(SearchTerm))
+                return;
+
+            foreach (Topic t in this.AllTopics)
+            {
+               
+
+                if (!this.FilteredTopics.Contains(t) &&
+                    t.Name.Contains(SearchTerm))
+                    this.FilteredTopics.Add(t);
+                else if (this.FilteredTopics.Contains(t) &&
+                    !t.Name.Contains(SearchTerm))
+                    this.FilteredTopics.Remove(t);
+
+                this.FilteredTopics = new ObservableCollection<Topic>(this.FilteredTopics.OrderBy(x => x.Name));
+            }
+
+
+
+
+        }
+        public ICommand RefreshCommand => new Command(Refresh);
+
+        private void Refresh()
+        {
+            FilteredTopics.Clear();
+            CreateTopicList();
+            Search();
+
+            IsRefresh = false;
+        }
+        public ICommand GoToGamePageCommand => new Command<Topic>(GoToGamePage);
+        private void GoToGamePage(Topic t)
+        {
+            Page pa = new NavigationPage(new Views.GamePage());
+            GamePageVM gamePageVM = new GamePageVM();
+            gamePageVM.Topic = t;
+            pa.BindingContext = gamePageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
+            SearchTerm = null;
+
         }
     }
 }

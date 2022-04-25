@@ -28,7 +28,7 @@ x:DataType="local:AcountPageVM"
                 <Entry Placeholder="Game Description" Text="{Binding GameDescription}" IsVisible="{Binding IsAdmin}"></Entry>
                 <Button Command="{Binding AddGameCommand}" Text="Add Game" IsVisible="{Binding IsAdmin}" ></Button>
 
-
+                <Button Command="{Binding SeeAllUsersCommand}" Text="See All Users" IsVisible="{Binding IsAdmin}" ></Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

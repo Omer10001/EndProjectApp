@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using EndProjectApp.DTO;
 using EndProjectApp.Services;
 using EndProjectApp.Models;
 using System.Collections.ObjectModel;
@@ -22,6 +23,193 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+        #region post
+        private ObservableCollection<PostDTO> postList;
+        public ObservableCollection<PostDTO> PostList
+        {
+            get { return postList; }
+            set
+            {
+                if (PostList != value)
+                {
+                    postList = value;
+                    OnPropertyChanged("PostList");
+
+                }
+            }
+        }
+        private bool isRefresh;
+        public bool IsRefresh
+        {
+            get { return isRefresh; }
+            set
+            {
+                if (IsRefresh != value)
+                {
+                    isRefresh = value;
+                    OnPropertyChanged("IsRefresh");
+                }
+            }
+        }
+        private bool isLiked;
+        public bool IsLiked
+        {
+            get { return isLiked; }
+            set
+            {
+                if (IsLiked != value)
+                {
+                    isLiked = value;
+                    OnPropertyChanged("IsLiked");
+                }
+            }
+        }
+        private bool isDisliked;
+        public bool IsDisliked
+        {
+            get { return isDisliked; }
+            set
+            {
+                if (IsDisliked != value)
+                {
+                    isDisliked = value;
+                    OnPropertyChanged("IsDisliked");
+                }
+            }
+        }
+        private Color likedColor;
+        public Color LikedColor
+        {
+            get { return likedColor; }
+            set
+            {
+                if (LikedColor != value)
+                {
+                    likedColor = value;
+                    OnPropertyChanged("LikedColor");
+                }
+            }
+        }
+        private Color dislikedColor;
+        public Color DislikedColor
+        {
+            get { return dislikedColor; }
+            set
+            {
+                if (DislikedColor != value)
+                {
+                    dislikedColor = value;
+                    OnPropertyChanged("DislikedColor");
+                }
+            }
+        }
+       
+        public ICommand RefreshCommand => new Command(Refresh);
+
+        private void Refresh()
+        {
+            PostList.Clear();
+            CreatePostList();
+
+            IsRefresh = false;
+        }
+        public ICommand LikeCommand => new Command<PostDTO>(Like);
+        private async void Like(PostDTO p)
+        {
+            if (p.LikeInPost.IsLiked)
+            {
+
+                p.LikeInPost.IsLiked = false;
+                p.Post.NumOfLikes--;
+
+
+            }
+            else
+            {
+                if (p.LikeInPost.IsDisliked)
+                {
+                    p.LikeInPost.IsDisliked = false;
+                    p.Post.NumOfLikes++;
+
+                }
+                p.LikeInPost.IsLiked = true;
+                p.Post.NumOfLikes++;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+
+            await proxy.LikePost(p);
+            int index = PostList.IndexOf(p);
+            PostList.RemoveAt(index);
+            PostList.Insert(index, p);
+
+        }
+        public ICommand DislikeCommand => new Command<PostDTO>(Dislike);
+        private async void Dislike(PostDTO p)
+        {
+            if (p.LikeInPost.IsDisliked)
+            {
+                p.LikeInPost.IsDisliked = false;
+                p.Post.NumOfLikes++;
+
+            }
+            else
+            {
+                if (p.LikeInPost.IsLiked)
+                {
+                    p.LikeInPost.IsLiked = false;
+                    p.Post.NumOfLikes--;
+
+                }
+                p.LikeInPost.IsDisliked = true;
+                p.Post.NumOfLikes--;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            await proxy.LikePost(p);
+            int index = PostList.IndexOf(p);
+            PostList.RemoveAt(index);
+            PostList.Insert(index, p);
+        }
+        public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
+        private void GoToPostPage(Post p)
+        {
+            Page pa = new NavigationPage(new Views.PostPage());
+            PostPageVM postPageVM = new PostPageVM();
+            postPageVM.Post = p;
+            pa.BindingContext = postPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
+
+        }
+        private async void CreatePostList()
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            List<PostDTO> p = await proxy.GetAllPostsAsync();
+            if (p != null)
+            {
+                foreach (PostDTO post in p)
+                {
+                    if(post.Post.TopicId == Topic.Id)
+                    PostList.Add(post);
+                }
+            }
+            else
+            {
+
+            }
+        }
+        #endregion
         public Topic Topic;
+        public GamePageVM()
+        {
+            PostList = new ObservableCollection<PostDTO>();
+
+            CreatePostList();
+
+
+
+
+            isRefresh = false;
+        }
     }
 }

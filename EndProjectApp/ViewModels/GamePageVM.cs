@@ -203,13 +203,54 @@ namespace EndProjectApp.ViewModels
         public GamePageVM()
         {
             PostList = new ObservableCollection<PostDTO>();
-
+            ReviewList = new ObservableCollection<Review>();
             CreatePostList();
+            CreateReviewList();
 
 
 
 
             isRefresh = false;
+        }
+        private ObservableCollection<Review> reviewList;
+        public ObservableCollection<Review> ReviewList
+        {
+            get { return reviewList; }
+            set
+            {
+                if (ReviewList != value)
+                {
+                   reviewList = value;
+                    OnPropertyChanged("ReviewList");
+
+                }
+            }
+        }
+        private bool isReviewRefresh;
+        public bool IsReviewRefresh
+        {
+            get { return isReviewRefresh; }
+            set
+            {
+                if (IsReviewRefresh != value)
+                {
+                    isReviewRefresh = value;
+                    OnPropertyChanged("IsRefresh");
+                }
+            }
+        }
+        public async void CreateReviewList()
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            List<Review> r = await proxy.GetReviewsAsync();
+            if (r != null)
+            {
+                foreach (Review review in r)
+                {
+                    if (review.TopicId == Topic.Id)
+                        ReviewList.Add(review);
+                }
+            }
         }
     }
 }

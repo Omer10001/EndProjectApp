@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EndProjectApp.Views.PostPage">
+             x:Class="EndProjectApp.Views.PostPage"
+             xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+             xmlns:models="clr-namespace:EndProjectApp.Models"
+             x:DataType="local:PostPageVM">
     <ContentPage.Content>
         <StackLayout>
             <Grid >
@@ -31,7 +34,90 @@
                 <Label Grid.Row="4" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
                 <Button Grid.Row="4" Grid.Column="2" ></Button>
             </Grid>
-            
+            <ScrollView>
+                <RefreshView >
+                    <CollectionView x:Name="collectionName" ItemsSource="{Binding Post.Comments}" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                           
+                            <DataTemplate x:DataType="models:Comment">
+                                <Grid>
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="20"  />
+                                        <RowDefinition Height="15" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="25" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Label Text="{Binding User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
+                                    <Button Text="Like" Grid.Row="3" Grid.Column="0"></Button>
+                                    <Button Text="Dislike" Grid.Row="3" Grid.Column="1"></Button>
+                                    <Button Text="Reply" Grid.Row="3" Grid.Column="2"></Button>
+                                    
+                                    <CollectionView ItemsSource="{Binding InverseRepliedTo}">
+
+                                        <CollectionView.ItemsLayout>
+                                            
+                                            <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Comment">
+                                                <Grid>
+                                                    <Grid.RowDefinitions >
+                                                        <RowDefinition Height="20"  />
+                                                        <RowDefinition Height="15" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="25" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Label Text="{Binding User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                                                    <Label Text="{Binding TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                                                    <Label Text="{Binding Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
+                                                    <Button Text="Like" Grid.Row="3" Grid.Column="0"></Button>
+                                                    <Button Text="Dislike" Grid.Row="3" Grid.Column="1"></Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                       
+                                        
+                                    </CollectionView>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                                               
+                    </CollectionView>
+                                    
+                </RefreshView>
+            </ScrollView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Write your comment" Grid.Column="0" Grid.ColumnSpan="3"></Entry>
+                <Button Text="Add Comment" Grid.Column="3"></Button>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

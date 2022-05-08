@@ -136,6 +136,7 @@ namespace EndProjectApp.ViewModels
             pa.BindingContext = gamePageVM;
             App.Current.MainPage.Navigation.PushAsync(pa);
             SearchTerm = null;
+            Refresh();
 
         }
     }

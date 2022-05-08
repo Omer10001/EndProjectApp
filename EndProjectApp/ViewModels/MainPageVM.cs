@@ -102,6 +102,22 @@ namespace EndProjectApp.ViewModels
                 }
             }
         }
+
+        private PostDTO selectedPost;
+
+        public PostDTO SelectedPost
+        {
+            get => selectedPost;
+            set
+            {
+                if (selectedPost != value)
+                {
+                    selectedPost = value;
+                    OnPropertyChanged("SelectedPost");
+                }
+            }
+        }
+
         public MainPageVM()
         {
             PostList = new ObservableCollection<PostDTO>();

@@ -264,7 +264,21 @@ namespace EndProjectApp.Services
             //}
 
         }
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<bool> AddCommentAsync(Comment c)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(c);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddComment", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+            public async Task<List<User>> GetUsersAsync()
         {
             try
             {
@@ -306,6 +320,33 @@ namespace EndProjectApp.Services
                     string content = await response.Content.ReadAsStringAsync();
                     List<Topic> topics = JsonSerializer.Deserialize<List<Topic>>(content, options);
                     return topics;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
+        public async Task<List<Review>> GetReviewsAsync()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetReviews");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Review> reviews = JsonSerializer.Deserialize<List<Review>>(content, options);
+                    return reviews;
                 }
                 else
                 {

@@ -238,7 +238,7 @@ namespace EndProjectApp.Services
             {
                 return false;
             }
-
+            }
 
             //Upload file to server (only images!)
             //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
@@ -263,7 +263,7 @@ namespace EndProjectApp.Services
             //    }
             //}
 
-        }
+      
         public async Task<bool> AddCommentAsync(Comment c)
         {
             try

@@ -5,72 +5,77 @@
              xmlns:models="clr-namespace:EndProjectApp.Models"
            xmlns:DTO="clr-namespace:EndProjectApp.DTO"
              NavigationPage.HasNavigationBar="False"
+             xmlns:viewmodels="clr-namespace:EndProjectApp.ViewModels"
+             x:DataType="viewmodels:GamePageVM"
              x:Class="EndProjectApp.Views.GamePage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Spacing="0">
          
-            <Grid>
+            <Grid RowSpacing="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"  />
-                <RowDefinition Height="40"  />
-                    <RowDefinition Height="40"  />
+                <RowDefinition Height="*"  />
+                <RowDefinition Height="*"  />
+                   
 
                 </Grid.RowDefinitions>
             <Label Text="{Binding Topic.Name}" FontSize="Header" Grid.Row="0"></Label>
             <Label Text="{Binding Topic.AboutText}" Grid.Row="1"></Label>
-            <xct:TabView TabStripPlacement="Top" Grid.Row="2">
-                
-                <xct:TabViewItem
-                  Text="Posts" >
-                   <Grid>
-                            <ScrollView>
-                        <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
-                            <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}" >
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical"
-                           ItemSpacing="20" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="DTO:PostDTO">
-                                <Frame>
-                                    <Grid >
-                                        <Grid.RowDefinitions >
-                                          
-                                            <RowDefinition Height="15" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="25" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="50" />
-                                        </Grid.ColumnDefinitions>
-
-                                        
-                                        <Label Text="{Binding Post.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                                        <Label Text="{Binding Post.TimeCreated}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-
-                                        <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                        <Button Grid.Row="2" Grid.Column="0"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding LikeColor }" ></Button>
-                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                                        <Button Grid.Row="2" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding DislikeColor}"></Button>
-                                        <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"></Label>
-
-
-
-
-
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    </RefreshView>
-                    </ScrollView>
             </Grid>
+            <xct:TabView TabStripPlacement="Top" >
+
+                    <xct:TabViewItem
+                  Text="Posts" >
+                        <Grid>
+                        <ScrollView>
+                            <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
+                                <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" EmptyView="no posts" SelectionMode="Single" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}" >
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="20" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="DTO:PostDTO">
+                                            <Frame>
+                                                <Grid >
+                                                    <Grid.RowDefinitions >
+
+                                                        <RowDefinition Height="15" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="25" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="50" />
+                                                    </Grid.ColumnDefinitions>
+
+
+                                                    <Label Text="{Binding Post.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                                                    <Label Text="{Binding Post.TimeCreated}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+
+                                                    <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" TextColor="Black"></Label>
+                                                    <Button Grid.Row="2" Grid.Column="0"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding LikeColor }" ></Button>
+                                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
+                                                    <Button Grid.Row="2" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding DislikeColor}"></Button>
+                                                    <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"></Label>
+
+
+
+
+
+                                                </Grid>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </RefreshView>
+                        </ScrollView>
+                    </Grid>
+                      
+           
             </xct:TabViewItem>
                     <xct:TabViewItem Text="Reviews">
                         
@@ -109,7 +114,7 @@
             </xct:TabView>
       
        
-        </Grid>
+        <!--</Grid>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

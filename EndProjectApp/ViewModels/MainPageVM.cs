@@ -229,6 +229,7 @@ namespace EndProjectApp.ViewModels
             
             p.BindingContext = new AcountPageVM();
             App.Current.MainPage.Navigation.PushAsync(p);
+            Refresh();
         }
     }
 }

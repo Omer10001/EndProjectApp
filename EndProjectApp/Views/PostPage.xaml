@@ -13,22 +13,22 @@
                     <RowDefinition Height="20"  />
                     <RowDefinition Height="15" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="25" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition Width="40" />
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding Post.Post.Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"  TextColor="Gray" FontSize="Small"></Label>
                 <Label Text="{Binding Post.Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
                 <Label Text="{Binding Post.Post.TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                <Label Text="{Binding Post.Post.Text}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                <Label Text="{Binding Post.Post.Text}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
                 <Label Text="{Binding Post.Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
                 <Button Grid.Row="4"  Grid.Column="0"  ></Button>

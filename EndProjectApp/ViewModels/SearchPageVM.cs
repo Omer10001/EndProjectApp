@@ -131,9 +131,8 @@ namespace EndProjectApp.ViewModels
         private void GoToGamePage(Topic t)
         {
             Page pa = new NavigationPage(new Views.GamePage());
-            GamePageVM gamePageVM = new GamePageVM();
-            gamePageVM.Topic = t;
-            pa.BindingContext = gamePageVM;
+            GamePageVM gamePageVM = new GamePageVM { Topic = t };
+            pa.BindingContext = gamePageVM;          
             App.Current.MainPage.Navigation.PushAsync(pa);
             SearchTerm = null;
             Refresh();

@@ -13,15 +13,17 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"  />
                 <RowDefinition Height="40"  />
+                    <RowDefinition Height="40"  />
 
-            </Grid.RowDefinitions>
+                </Grid.RowDefinitions>
             <Label Text="{Binding Topic.Name}" FontSize="Header" Grid.Row="0"></Label>
             <Label Text="{Binding Topic.AboutText}" Grid.Row="1"></Label>
-            <xct:TabView TabStripPlacement="Top" >
+            <xct:TabView TabStripPlacement="Top" Grid.Row="2">
                 
                 <xct:TabViewItem
-                  Text="Posts" IsSelected="False"  >
-                    <ScrollView>
+                  Text="Posts" >
+                   <Grid>
+                            <ScrollView>
                         <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
                             <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}" >
                         <CollectionView.ItemsLayout>
@@ -68,7 +70,8 @@
                     </CollectionView>
                     </RefreshView>
                     </ScrollView>
-                </xct:TabViewItem>
+            </Grid>
+            </xct:TabViewItem>
                     <xct:TabViewItem Text="Reviews">
                         
                         <ScrollView>

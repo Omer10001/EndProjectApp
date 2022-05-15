@@ -171,8 +171,8 @@ namespace EndProjectApp.ViewModels
             PostList.RemoveAt(index);
             PostList.Insert(index, p);
         }
-        public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
-        private void GoToPostPage(Post p)
+        public ICommand GoToPostPageCommand => new Command<PostDTO>(GoToPostPage);
+        private void GoToPostPage(PostDTO p)
         {
             Page pa = new NavigationPage(new Views.PostPage());
             PostPageVM postPageVM = new PostPageVM();
@@ -181,7 +181,7 @@ namespace EndProjectApp.ViewModels
             App.Current.MainPage.Navigation.PushAsync(pa);
 
         }
-        private async void CreatePostList()
+        public async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             List<PostDTO> p = await proxy.GetAllPostsAsync();
@@ -199,7 +199,19 @@ namespace EndProjectApp.ViewModels
             }
         }
         #endregion
-        public Topic Topic;
+        private Topic topic;
+        public Topic Topic
+        {
+            get { return topic; }
+            set
+            {
+                if (Topic != value)
+                {
+                    topic = value;
+                    OnPropertyChanged("Topic");
+                }
+            }
+        }
         public GamePageVM()
         {
             PostList = new ObservableCollection<PostDTO>();

@@ -359,6 +359,33 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
+        public async Task<List<Comment>> GetCommentsAsync()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetComments");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    List<Comment> comments = JsonSerializer.Deserialize<List<Comment>>(content, options);
+                    return comments;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
         public async Task<bool> CreatePostAsync(Post p)
         {
             try

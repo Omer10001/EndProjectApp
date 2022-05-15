@@ -196,8 +196,8 @@ namespace EndProjectApp.ViewModels
             PostList.RemoveAt(index);
             PostList.Insert(index, p);
         }
-        public ICommand GoToPostPageCommand => new Command<Post>(GoToPostPage);
-        private void GoToPostPage(Post p)
+        public ICommand GoToPostPageCommand => new Command<PostDTO>(GoToPostPage);
+        private void GoToPostPage(PostDTO p)
         {
             Page pa = new NavigationPage(new Views.PostPage());
             PostPageVM postPageVM = new PostPageVM();

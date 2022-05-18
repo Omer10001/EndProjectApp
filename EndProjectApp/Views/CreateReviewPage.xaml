@@ -4,9 +4,8 @@
              x:Class="EndProjectApp.Views.CreateReviewPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Slider Minimum="0" Maximum="10"  Value=""/>
+            <Entry Placeholder="Write Your Review"></Entry>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -78,10 +78,20 @@
            
             </xct:TabViewItem>
                     <xct:TabViewItem Text="Reviews">
-                        
-                        <ScrollView>
-                     
-                            <CollectionView  ItemsSource="{Binding ReviewList}" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0"></Label>
+                        <Button Text="Write a Review" Grid.Row="0" Grid.Column="1" Command="{Binding GoToCreateReviewPageCommand}"> </Button>
+                        <ScrollView Grid.Row="1" Grid.ColumnSpan="2">
+                            <RefreshView  Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding RefreshReviewCommand}" IsRefreshing="{Binding IsReviewRefresh}" >
+                                <CollectionView  ItemsSource="{Binding ReviewList}" Grid.Row="1" Grid.ColumnSpan="2" >
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout Orientation="Vertical"
                            ItemSpacing="20" />
@@ -95,22 +105,27 @@
                                                     <RowDefinition Height="15" />
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="25" />
-                                                        <RowDefinition Height="25" />
+                                                       
                                                     </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="40" />
                                                     <ColumnDefinition Width="40" />
 
                                                 </Grid.ColumnDefinitions>
-                                            </Grid>
+                                            <Label Text="{Binding Score}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>
+                                            <Label Text="{Binding User.Name}" Grid.Row="0"  Grid.Column="1"></Label>
+                                            <Label Text="{Binding TimeCreated}" Grid.Row="1"  Grid.Column="1"></Label>
+                                            <Label Text="{Binding Text}" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                                        </Grid>
+                                            
                                         </Frame>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-                    
-                     </ScrollView>
-
-                    </xct:TabViewItem>
+                            </RefreshView>
+                        </ScrollView>
+                    </Grid>
+                </xct:TabViewItem>
             </xct:TabView>
       
        

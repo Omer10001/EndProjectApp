@@ -222,7 +222,8 @@ namespace EndProjectApp.ViewModels
 
 
 
-            isRefresh = false;
+            IsRefresh = false;
+            IsReviewRefresh = false;
         }
         private ObservableCollection<Review> reviewList;
         public ObservableCollection<Review> ReviewList
@@ -250,6 +251,26 @@ namespace EndProjectApp.ViewModels
                     OnPropertyChanged("IsRefresh");
                 }
             }
+        }
+        public ICommand RefreshReviewCommand => new Command(RefreshReview);
+
+        private void RefreshReview()
+        {
+            ReviewList.Clear();
+            CreateReviewList();
+
+            IsReviewRefresh = false;
+        }
+        public ICommand GoToCreateReviewPageCommand => new Command(GoToCreateReviewPage);
+
+        private void GoToCreateReviewPage()
+        {
+            //Page pa = new NavigationPage(new Views.PostPage());
+            //PostPageVM postPageVM = new PostPageVM();
+            //postPageVM.Post = p;
+            //pa.BindingContext = postPageVM;
+            //App.Current.MainPage.Navigation.PushAsync(pa);
+
         }
         public async void CreateReviewList()
         {

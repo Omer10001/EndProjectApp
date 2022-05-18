@@ -278,7 +278,21 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-            public async Task<List<User>> GetUsersAsync()
+        public async Task<bool> AddReviewAsync(Review r)
+        {
+            try
+            {
+                string userJson = JsonSerializer.Serialize(r);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddReview", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public async Task<List<User>> GetUsersAsync()
         {
             try
             {

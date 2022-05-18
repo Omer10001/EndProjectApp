@@ -4,7 +4,7 @@
              x:Class="EndProjectApp.Views.CreateReviewPage">
     <ContentPage.Content>
         <StackLayout>
-            <Slider Minimum="0" Maximum="10"  Value=""/>
+            <Slider Minimum="0" Maximum="10"  />
             <Entry Placeholder="Write Your Review"></Entry>
         </StackLayout>
     </ContentPage.Content>

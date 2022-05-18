@@ -2,12 +2,17 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:EndProjectApp.Views"
+            xmlns:fontAwsome="clr-namespace:FontAwesome"
             NavigationPage.HasBackButton="False"
             NavigationPage.HasNavigationBar="False"
              x:Class="EndProjectApp.Views.MainTabbedPage"
             xmlns:andorid="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             andorid:TabbedPage.ToolbarPlacement="Bottom">
-    <local:MainPage Title="Main"/>
+    <local:MainPage  Title="Main" >
+        <local:MainPage.IconImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.House}"></FontImageSource>
+        </local:MainPage.IconImageSource>
+    </local:MainPage>
     <local:CreatePostPage Title="Create Post"> </local:CreatePostPage>
     <local:SearchPage Title="Search "/>
 

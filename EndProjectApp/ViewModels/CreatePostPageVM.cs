@@ -28,9 +28,13 @@ namespace EndProjectApp.ViewModels
             get { return pickedTopic; }
             set
             {
-                pickedTopic = value;
+                if(pickedTopic != value)
+                {
+                    pickedTopic = value;
 
-                OnPropertyChanged("PickedTopic");
+                    OnPropertyChanged("PickedTopic");
+                }
+               
             }
         }
         private string title;
@@ -67,9 +71,13 @@ namespace EndProjectApp.ViewModels
             get { return topicList; }
             set
             {
-                topicList = value;
+                if(topicList != value)
+                {
+                    topicList = value;
 
-                OnPropertyChanged("TopicList");
+                    OnPropertyChanged("TopicList");
+                }
+               
             }
         }
         public ICommand CreatePostCommand { protected set; get; }
@@ -110,6 +118,8 @@ namespace EndProjectApp.ViewModels
                     await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
                     Title = string.Empty;
                     Text = string.Empty;
+                    PickedTopic = null;
+
                     
                 }
                    

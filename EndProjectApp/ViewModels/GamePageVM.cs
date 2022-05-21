@@ -265,11 +265,11 @@ namespace EndProjectApp.ViewModels
 
         private void GoToCreateReviewPage()
         {
-            //Page pa = new NavigationPage(new Views.PostPage());
-            //PostPageVM postPageVM = new PostPageVM();
-            //postPageVM.Post = p;
-            //pa.BindingContext = postPageVM;
-            //App.Current.MainPage.Navigation.PushAsync(pa);
+            Page pa = new NavigationPage(new Views.CreateReviewPage());
+            CreateReviewPageVM createReviewPageVM = new CreateReviewPageVM { Topic = Topic};
+        
+            pa.BindingContext = createReviewPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
 
         }
         public async void CreateReviewList()

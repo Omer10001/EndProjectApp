@@ -10,6 +10,7 @@
         <StackLayout >
             <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="{Binding PickedTopic}" ItemDisplayBinding="{Binding Name}"/>
             <Entry Placeholder="Title" Text="{Binding Title,Mode=TwoWay}"  />
+            
             <Editor Placeholder="Text" Text="{Binding Text,Mode=TwoWay}" AutoSize="TextChanges"    />
             <Button Text="Create" Command="{Binding CreatePostCommand}" />
             

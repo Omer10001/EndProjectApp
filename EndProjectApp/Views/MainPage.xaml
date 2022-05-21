@@ -35,7 +35,7 @@
                                 <Grid.RowDefinitions >
                                     <RowDefinition Height="20"  />
                                     <RowDefinition Height="15" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="auto" />
                                         <RowDefinition Height="25" />
                                     </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -52,9 +52,9 @@
                                 <Label Text="{Binding Post.TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
                                     <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding LikeColor }" ></Button>
+                                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}"  ></Button>
                                     <Label Grid.Row="3" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" BackgroundColor="{Binding DislikeColor}"></Button>
+                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding DisLikedIconFont}"></Button>
                                     <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
                                   
 

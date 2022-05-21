@@ -23,14 +23,18 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        private Topic topic;
-        public Topic Topic
+        private Topic thisTopic;
+        public Topic ThisTopic
         {
-            get { return topic; }
+            get { return thisTopic; }
             set
             {
-                topic = value;
-                OnPropertyChanged("Topic");
+                if(thisTopic!= value)
+                {
+                    thisTopic = value;
+                    OnPropertyChanged("ThisTopic");
+                }
+               
             }
         }
         private Double score;
@@ -39,8 +43,12 @@ namespace EndProjectApp.ViewModels
             get { return score; }
             set
             {
-                score = value;
-                OnPropertyChanged("Score");
+                if(score != value)
+                {
+                    score = value;
+                    OnPropertyChanged("Score");
+                }
+                
             }
         }
         private string reviewText;
@@ -49,8 +57,12 @@ namespace EndProjectApp.ViewModels
             get { return reviewText; }
             set
             {
-                reviewText = value;
-                OnPropertyChanged("ReviewText");
+                if(reviewText!= value)
+                {
+                    reviewText = value;
+                    OnPropertyChanged("ReviewText");
+                }
+                
             }
         }
         public ICommand CreateReviewCommand => new Command(CreateReview);
@@ -62,7 +74,7 @@ namespace EndProjectApp.ViewModels
                 {
                     Score = (int)Score, //change this
                     Text = ReviewText,
-                    TopicId = Topic.Id,
+                    TopicId = ThisTopic.Id,
                     TimeCreated = DateTime.Now,
                     UserId = ((App)App.Current).CurrentUser.Id
 

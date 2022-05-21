@@ -240,30 +240,30 @@ namespace EndProjectApp.Services
             }
             }
 
-            //Upload file to server (only images!)
-            //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
-            //{
-            //    try
-            //    {
-            //        var multipartFormDataContent = new MultipartFormDataContent();
-            //        var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
-            //        multipartFormDataContent.Add(fileContent, "file", targetFileName);
-            //        HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            return true;
-            //        }
-            //        else
-            //            return false;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //        return false;
-            //    }
-            //}
+        //Upload file to server(only images!)
+        //public async Task<bool> UploadImage(Models.FileInfo fileInfo, string targetFileName)
+        //{
+        //    try
+        //    {
+        //        var multipartFormDataContent = new MultipartFormDataContent();
+        //        var fileContent = new ByteArrayContent(File.ReadAllBytes(fileInfo.Name));
+        //        multipartFormDataContent.Add(fileContent, "file", targetFileName);
+        //        HttpResponseMessage response = await client.PostAsync($"{this.baseUri}/UploadImage", multipartFormDataContent);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //            return false;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //        return false;
+        //    }
+        //}
 
-      
+
         public async Task<bool> AddCommentAsync(Comment c)
         {
             try
@@ -373,7 +373,7 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
-        public async Task<List<Comment>> GetCommentsAsync()
+        public async Task<List<CommentDTO>> GetCommentsAsync()
         {
             try
             {
@@ -386,7 +386,7 @@ namespace EndProjectApp.Services
                         PropertyNameCaseInsensitive = true
                     };
                     string content = await response.Content.ReadAsStringAsync();
-                    List<Comment> comments = JsonSerializer.Deserialize<List<Comment>>(content, options);
+                    List<CommentDTO> comments = JsonSerializer.Deserialize<List<CommentDTO>>(content, options);
                     return comments;
                 }
                 else
@@ -439,8 +439,33 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-            
-        
+        public async Task<bool> LikeComment(CommentDTO c)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
+
+
+
+
+            };
+
+            try
+            {
+
+                string userJson = JsonSerializer.Serialize(c, options);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/LikeComment", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
 
     }
 }

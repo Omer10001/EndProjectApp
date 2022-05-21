@@ -10,6 +10,7 @@ namespace EndProjectApp.Models
         public Comment()
         {
             InverseRepliedTo = new List<Comment>();
+            LikesInComments = new List<LikesInComment>();
         }
 
         public int Id { get; set; }
@@ -24,5 +25,6 @@ namespace EndProjectApp.Models
         public virtual Comment RepliedTo { get; set; }
         public virtual User User { get; set; }
         public virtual List<Comment> InverseRepliedTo { get; set; }
+        public virtual List<LikesInComment> LikesInComments { get; set; }
     }
 }

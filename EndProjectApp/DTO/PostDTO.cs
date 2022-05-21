@@ -10,37 +10,26 @@ namespace EndProjectApp.DTO
     {
         public Post Post {get; set;}
         public LikesInPost LikeInPost { get; set; }
-        public Color LikeColor {
+        public string LikedIconFont
+        {
             get
             {
                 if (LikeInPost.IsLiked)
-                {
-                    return Color.Red;
-                }
+                    return "FAS";
                 else
-                    return Color.Gray;
-            }
-            set
-            {
-                LikeColor = value;
+                    return "FAR";
             }
         }
-        public Color DislikeColor {
+        public string DisLikedIconFont
+        {
             get
             {
                 if (LikeInPost.IsDisliked)
-                {
-                    return Color.Blue;
-                }
+                    return "FAS";
                 else
-                    return Color.Gray;
-            }
-            set
-            {
-                DislikeColor = value;
+                    return "FAR";
             }
         }
-
 
         public PostDTO()
         {

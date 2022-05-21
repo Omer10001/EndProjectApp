@@ -33,8 +33,8 @@ namespace EndProjectApp.ViewModels
                 OnPropertyChanged("Post");
             }
         }
-        private ObservableCollection<Comment> commentList;
-        public ObservableCollection<Comment> CommentList
+        private ObservableCollection<CommentDTO> commentList;
+        public ObservableCollection<CommentDTO> CommentList
         {
             get { return commentList; }
             set
@@ -46,12 +46,12 @@ namespace EndProjectApp.ViewModels
         private async void CreateCommentList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-            List<Comment> c = await proxy.GetCommentsAsync();
+            List<CommentDTO> c = await proxy.GetCommentsAsync();
             if (c != null)
             {
-                foreach (Comment comment in c)
+                foreach (CommentDTO comment in c)
                 {
-                    if(comment.PostId == Post.Post.Id && comment.RepliedToId == null)
+                    if(comment.Comment.PostId == Post.Post.Id && comment.Comment.RepliedToId == null)
                     CommentList.Add(comment);
                 }
             }
@@ -80,7 +80,7 @@ namespace EndProjectApp.ViewModels
         }
         public PostPageVM()
         {
-            CommentList = new ObservableCollection<Comment>();
+            CommentList = new ObservableCollection<CommentDTO>();
             CreateCommentList();
             isRefresh = false;
         }
@@ -97,8 +97,119 @@ namespace EndProjectApp.ViewModels
                 }
             }
         }
-        public ICommand AddCommentCommand => new Command(AddComment);
+        public ICommand LikeCommentCommand => new Command<CommentDTO>(LikeComment);
+        private async void LikeComment(CommentDTO c)
+        {
+            if (c.LikeInComment.IsLiked)
+            {
 
+                c.LikeInComment.IsLiked = false;
+                c.Comment.NumOfLikes--;
+
+
+            }
+            else
+            {
+                if (c.LikeInComment.IsDisliked)
+                {
+                    c.LikeInComment.IsDisliked = false;
+                    c.Comment.NumOfLikes++;
+
+                }
+                c.LikeInComment.IsLiked = true;
+                c.Comment.NumOfLikes++;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+
+            await proxy.LikeComment(c);
+            int index = CommentList.IndexOf(c);
+            CommentList.RemoveAt(index);
+            CommentList.Insert(index, c);
+
+        }
+        public ICommand DislikeCommentCommand => new Command<CommentDTO>(DislikeComment);
+        private async void DislikeComment(CommentDTO c)
+        {
+            if (c.LikeInComment.IsDisliked)
+            {
+                c.LikeInComment.IsDisliked = false;
+                c.Comment.NumOfLikes++;
+
+            }
+            else
+            {
+                if (c.LikeInComment.IsLiked)
+                {
+                    c.LikeInComment.IsLiked = false;
+                    c.Comment.NumOfLikes--;
+
+                }
+                c.LikeInComment.IsDisliked = true;
+                c.Comment.NumOfLikes--;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            await proxy.LikeComment(c);
+            int index = CommentList.IndexOf(c);
+            CommentList.RemoveAt(index);
+            CommentList.Insert(index, c);
+        }
+        public ICommand AddCommentCommand => new Command(AddComment);
+        public ICommand LikePostCommand => new Command(LikePost);
+        private async void LikePost()
+        {
+            if (Post.LikeInPost.IsLiked)
+            {
+
+                Post.LikeInPost.IsLiked = false;
+                Post.Post.NumOfLikes--;
+
+
+            }
+            else
+            {
+                if (Post.LikeInPost.IsDisliked)
+                {
+                    Post.LikeInPost.IsDisliked = false;
+                    Post.Post.NumOfLikes++;
+
+                }
+                Post.LikeInPost.IsLiked = true;
+                Post.Post.NumOfLikes++;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+
+            await proxy.LikePost(Post);
+           
+
+        }
+        public ICommand DislikePostCommand => new Command(DislikePost);
+        private async void DislikePost()
+        {
+            if (Post.LikeInPost.IsDisliked)
+            {
+                Post.LikeInPost.IsDisliked = false;
+                Post.Post.NumOfLikes++;
+
+            }
+            else
+            {
+                if (Post.LikeInPost.IsLiked)
+                {
+                    Post.LikeInPost.IsLiked = false;
+                    Post.Post.NumOfLikes--;
+
+                }
+                Post.LikeInPost.IsDisliked = true;
+                Post.Post.NumOfLikes--;
+
+            }
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            await proxy.LikePost(Post);
+            
+        }
         private async void AddComment()
         {
             try

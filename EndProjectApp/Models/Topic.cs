@@ -14,6 +14,7 @@ namespace EndProjectApp.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Image { get; set; }
         public string AboutText { get; set; }
 
         public virtual List<Post> Posts { get; set; }

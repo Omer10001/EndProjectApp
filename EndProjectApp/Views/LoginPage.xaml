@@ -3,6 +3,7 @@
              NavigationPage.HasNavigationBar="False"
             x:DataType="local:LoginPageVM"
              xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+               xmlns:fontAwsome="clr-namespace:FontAwesome"
              Title="Login"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EndProjectApp.Views.LoginPage">
@@ -23,7 +24,7 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Text="Email:" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Email:"  Grid.Column="0" Grid.Row="0" />
                 <Entry  Text="{Binding Email}" Placeholder="Email"    Keyboard="Email" ReturnType="Done" 
                                      Grid.Column="0" Grid.Row="1"        />
                 <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} " Grid.Column="0" Grid.Row="2"/>

@@ -148,6 +148,17 @@ namespace EndProjectApp.ViewModels
 
             }
         }
+        private string postImgSrc;
+
+        public string PostImgSrc
+        {
+            get => postImgSrc;
+            set
+            {
+                postImgSrc = value;
+                OnPropertyChanged("PostImgSrc");
+            }
+        }
         ///The following command handle the pick photo button
         FileResult imageFileResult;
         public event Action<ImageSource> SetImageSourceEvent;

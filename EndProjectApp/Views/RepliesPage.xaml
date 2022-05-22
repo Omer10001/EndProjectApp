@@ -1,12 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EndProjectApp.Views.RepliesPage">
+             x:Class="EndProjectApp.Views.RepliesPage"
+               xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+             xmlns:models="clr-namespace:EndProjectApp.Models"
+             xmlns:DTO="clr-namespace:EndProjectApp.DTO"
+              xmlns:fontAwsome="clr-namespace:FontAwesome"
+             NavigationPage.HasNavigationBar="False"
+             x:DataType="local:RepliesPageVM">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid >
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="20"  />
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                  
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding Comment.Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                <Label Text="{Binding Comment.Comment.TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                <Label Text="{Binding Comment.Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
+                <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Comment.LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                <Label Text="{Binding Comment.Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
+                <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding Comment.DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
+              
+            </Grid>
+            <ScrollView>
+                <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}">
+                    <CollectionView x:Name="collectionName" ItemsSource="{Binding ReplyList}" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate x:DataType="DTO:CommentDTO">
+                                <Grid>
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="20"  />
+                                        <RowDefinition Height="15" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding Comment.TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
+                                    <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                                    <Label Text="{Binding Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
+                                    <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                                    <Button Text="Reply" Grid.Row="3" Grid.Column="3"></Button>
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+
+                    </CollectionView>
+
+                </RefreshView>
+            </ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Write your comment" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding UserReply}"></Entry>
+                <Button Text="Add Comment" Grid.Column="3" Grid.Row="0" Command="{Binding AddReplyCommand}"></Button>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

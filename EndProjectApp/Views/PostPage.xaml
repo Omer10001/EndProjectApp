@@ -67,42 +67,9 @@
                                     <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
                                     <Label Text="{Binding Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
                                     <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
-                                    <Button Text="Reply" Grid.Row="3" Grid.Column="3"></Button>
+                                    <Button Text="View Replies"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.GoToRepliesPageCommand}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="3"></Button>
                                     
-                                    <CollectionView ItemsSource="{Binding Comment.InverseRepliedTo}">
-
-                                        <CollectionView.ItemsLayout>
-                                            
-                                            <LinearItemsLayout Orientation="Vertical"
-                           ItemSpacing="10" />
-                                        </CollectionView.ItemsLayout>
-                                        <CollectionView.ItemTemplate>
-                                            <DataTemplate x:DataType="models:Comment">
-                                                <Grid>
-                                                    <Grid.RowDefinitions >
-                                                        <RowDefinition Height="20"  />
-                                                        <RowDefinition Height="15" />
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="25" />
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Label Text="{Binding User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-                                                    <Label Text="{Binding TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
-                                                    <Label Text="{Binding Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
-                                                    <Button Text="Like" Grid.Row="3" Grid.Column="0"></Button>
-                                                    <Button Text="Dislike" Grid.Row="3" Grid.Column="1"></Button>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </CollectionView.ItemTemplate>
-                                       
-                                        
-                                    </CollectionView>
+                                   
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

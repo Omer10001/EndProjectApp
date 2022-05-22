@@ -4,6 +4,26 @@
              x:Class="EndProjectApp.Views.AdminUsersPage">
     <ContentPage.Content>
         <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Frame  BorderColor="Black" Padding="0" Grid.Row="0" Grid.Column="0">
+                    <Label Text="text"></Label>
+                </Frame>
+                <Frame  BorderColor="Black" Padding="0" Grid.Row="0" Grid.Column="1">
+                    <Label Text="text"></Label>
+                </Frame>
+            </Grid>
             
         </StackLayout>
     </ContentPage.Content>

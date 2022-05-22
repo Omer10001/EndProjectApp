@@ -233,7 +233,16 @@ namespace EndProjectApp.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
             }
         }
+        public ICommand GoToRepliesPageCommand => new Command<CommentDTO>(GoToRepliesPage);
+        private void GoToRepliesPage(CommentDTO c)
+        {
+            Page pa = new NavigationPage(new Views.PostPage());
+            RepliesPageVM repliesPageVM = new RepliesPageVM();
+            repliesPageVM.Comment = c;
+            pa.BindingContext = repliesPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
 
+        }
 
 
     }

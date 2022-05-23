@@ -13,6 +13,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
+                
                 <Label Text="Score:" Grid.Row="0"></Label>
                 <Slider Minimum="0" Maximum="10"  Value="{Binding Score}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
                 <Label Text="{Binding Score}" Grid.Row="0" Grid.Column="4"></Label>

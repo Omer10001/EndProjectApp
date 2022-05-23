@@ -109,8 +109,8 @@
                                                        
                                                     </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="40" />
-                                                    <ColumnDefinition Width="40" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
 
                                                 </Grid.ColumnDefinitions>
                                             <Label Text="{Binding Score}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>

@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:local="clr-namespace:EndProjectApp.ViewModels"
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True"
              x:Class="EndProjectApp.Views.CreateReviewPage" x:DataType="local:CreateReviewPageVM">
     <ContentPage.Content>
         <StackLayout>

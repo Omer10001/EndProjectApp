@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EndProjectApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using EndProjectApp.ViewModels;
 
 namespace EndProjectApp.Views
 {
@@ -14,8 +15,13 @@ namespace EndProjectApp.Views
     {
         public CreatePostPage()
         {
-            this.BindingContext = new CreatePostPageVM(); 
+            this.BindingContext = new CreatePostPageVM();
+            ((CreatePostPageVM)this.BindingContext).SetImageSourceEvent += OnSetImageSource;
             InitializeComponent();
+        }
+        public void OnSetImageSource(ImageSource imgSource)
+        {
+            
         }
     }
 }

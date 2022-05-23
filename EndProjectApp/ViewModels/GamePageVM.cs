@@ -265,7 +265,7 @@ namespace EndProjectApp.ViewModels
 
         private void GoToCreateReviewPage()
         {
-            Page pa = new NavigationPage(new Views.CreateReviewPage());
+            Page pa = new  Views.CreateReviewPage();
             CreateReviewPageVM createReviewPageVM = new CreateReviewPageVM { ThisTopic = Topic};
         
             pa.BindingContext = createReviewPageVM;

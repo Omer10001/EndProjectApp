@@ -466,8 +466,33 @@ namespace EndProjectApp.Services
             }
         }
 
+        public async Task<bool> PromoteUser(User u)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
 
+
+
+
+            };
+
+            try
+            {
+
+                string userJson = JsonSerializer.Serialize(u, options);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/PromoteUser", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
+   
 }
 

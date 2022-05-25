@@ -21,20 +21,43 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-        private ObservableCollection<User> allUsers;
-        public ObservableCollection<User> AllUsers
+        private ObservableCollection<User> userList;
+        public ObservableCollection<User> UserList
         {
-            get { return allUsers; }
+            get { return userList; }
             set
             {
-                if(allUsers!=value)
+                if(userList!=value)
                 {
-                   allUsers = value;
+                   userList = value;
 
-                    OnPropertyChanged("AllUsers");
+                    OnPropertyChanged("UserList");
                 }
                 
             }
+        }
+        
+        private bool isRefresh;
+        public bool IsRefresh
+        {
+            get { return isRefresh; }
+            set
+            {
+                if (IsRefresh != value)
+                {
+                    isRefresh = value;
+                    OnPropertyChanged("IsRefresh");
+                }
+            }
+        }
+        public ICommand RefreshCommand => new Command(Refresh);
+
+        private void Refresh()
+        {
+            UserList.Clear();
+            GetUsers();
+
+            IsRefresh = false;
         }
         public AdminUsersPageVM()
         {
@@ -44,14 +67,14 @@ namespace EndProjectApp.ViewModels
         }
         public async void GetUsers()
         {
-           AllUsers = new ObservableCollection<User>();
+           UserList = new ObservableCollection<User>();
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             List<User> u = await proxy.GetUsersAsync();
             if (u != null)
             {
                 foreach (User user in u)
                 {
-                   AllUsers.Add(user);
+                   UserList.Add(user);
                 }
             }
         }

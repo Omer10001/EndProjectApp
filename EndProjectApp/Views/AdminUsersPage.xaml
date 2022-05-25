@@ -1,30 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              NavigationPage.HasBackButton="False"
+             xmlns:local="clr-namespace:EndProjectApp.ViewModels"
+              xmlns:modals="clr-namespace:EndProjectApp.Models"
+             xmlns:DTO="clr-namespace:EndProjectApp.DTO"
+             xmlns:fontAwsome="clr-namespace:FontAwesome"
              x:Class="EndProjectApp.Views.AdminUsersPage">
     <ContentPage.Content>
         <StackLayout>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+            <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
+                <CollectionView x:Name="collectionName" ItemsSource="{Binding UserList}" >
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="20" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="modals:User">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Ban"
+                                          
+                                           BackgroundColor="LightCoral"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.BanUser}"
+                                           CommandParameter="{Binding}" />
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <Grid>
+                              <Grid.RowDefinitions>
+                                 
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                 <ColumnDefinition Width="*"></ColumnDefinition>
+                                 <ColumnDefinition Width="*"></ColumnDefinition>
+                              <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+    
+                          </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}"></Label>
+                
+                            </Grid>
+                            </SwipeView>
+                        </DataTemplate>
 
-                </Grid.ColumnDefinitions>
-                <Frame  BorderColor="Black" Padding="0" Grid.Row="0" Grid.Column="0">
-                    <Label Text="text"></Label>
-                </Frame>
-                <Frame  BorderColor="Black" Padding="0" Grid.Row="0" Grid.Column="1">
-                    <Label Text="text"></Label>
-                </Frame>
-            </Grid>
-            
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </RefreshView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

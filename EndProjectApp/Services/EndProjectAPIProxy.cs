@@ -211,21 +211,7 @@ namespace EndProjectApp.Services
             }
         }
 
-        public async Task<bool> AddTagAsync(Tag t)
-        {
-            try
-            {
-                string userJson = JsonSerializer.Serialize(t);
-                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddTag", stringContent);
-                return response.IsSuccessStatusCode;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
-        }
+        
         public async Task<bool> AddGameAsync(Topic t)
         {
             try
@@ -466,7 +452,7 @@ namespace EndProjectApp.Services
             }
         }
 
-        public async Task<bool> PromoteUser(User u)
+        public async Task<bool> UpdateUser(User u)
         {
             JsonSerializerOptions options = new JsonSerializerOptions
             {
@@ -483,7 +469,7 @@ namespace EndProjectApp.Services
 
                 string userJson = JsonSerializer.Serialize(u, options);
                 StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/PromoteUser", stringContent);
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/UpdateUser", stringContent);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception e)
@@ -491,6 +477,7 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
+        
 
     }
    

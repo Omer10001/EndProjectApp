@@ -21,6 +21,7 @@ namespace EndProjectApp.Models
         public string Password { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsBanned { get; set; }
         public DateTime BirthDate { get; set; }
         public virtual List<LikesInPost> LikesInPosts { get; set; }
         public virtual ICollection<LikesInComment> LikesInComments { get; set; }

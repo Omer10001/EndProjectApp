@@ -98,7 +98,7 @@ namespace EndProjectApp.ViewModels
             LogoutCommand = new Command(Logout);
             ChangePasswordCommand = new Command(ChangePassword);
             IsAdmin = ((App)App.Current).CurrentUser.IsAdmin;
-            AddTagCommand = new Command(AddTag);
+           
             AddGameCommand = new Command(AddGame);
         }
         public ICommand LogoutCommand { protected set; get; }
@@ -154,37 +154,7 @@ namespace EndProjectApp.ViewModels
         //admin stuff
         public bool IsAdmin { get; set; }
 
-        public ICommand AddTagCommand { protected set; get; }
-        public string TagName
-        {
-            get { return tagName; }
-            set
-            {
-                tagName = value;
-               
-                OnPropertyChanged("TagName");
-            }
-        }
-        private string tagName;
-        public async void AddTag()
-        {
-            try
-            {
-                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                Tag t = new Tag { Name = TagName };
-                bool isFine = await proxy.AddTagAsync(t);
-                if(isFine)
-                    await App.Current.MainPage.DisplayAlert("Success", "Tag added successfully", "Okay");
-                else 
-                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
-
-
-            }
-            catch
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
-            }
-        }
+       
         public ICommand AddGameCommand { protected set; get; }
         private string gameName;
         public string GameName
@@ -231,6 +201,16 @@ namespace EndProjectApp.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
             }
+        }
+        public ICommand GoToAdminUsersPageCommand => new Command(GoToAdminUsersPage);
+        private void GoToAdminUsersPage()
+        {
+            Page pa = new NavigationPage(new Views.AdminUsersPage());
+            AdminUsersPageVM adminUsersPageVM = new AdminUsersPageVM ();
+            pa.BindingContext = adminUsersPageVM;
+            App.Current.MainPage.Navigation.PushAsync(pa);
+            
+
         }
     }
 

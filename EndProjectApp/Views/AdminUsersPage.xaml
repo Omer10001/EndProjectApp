@@ -6,6 +6,7 @@
               xmlns:modals="clr-namespace:EndProjectApp.Models"
              xmlns:DTO="clr-namespace:EndProjectApp.DTO"
              xmlns:fontAwsome="clr-namespace:FontAwesome"
+             NavigationPage.HasNavigationBar="False"
              x:Class="EndProjectApp.Views.AdminUsersPage">
     <ContentPage.Content>
         <StackLayout>
@@ -17,15 +18,21 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modals:User">
-                            <SwipeView>
+                            <SwipeView >
                                 <SwipeView.LeftItems>
                                         <SwipeItems>
                                             <SwipeItem Text="Ban"
                                           
                                            BackgroundColor="LightCoral"
-                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.BanUser}"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.BanUserCommand}"
                                            CommandParameter="{Binding}" />
-                                        </SwipeItems>
+                                        <SwipeItem Text="Promote"
+                                          
+                                           BackgroundColor="Blue"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.PromoteUserCommand}"
+                                           CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                    
                                     </SwipeView.LeftItems>
                                     <Grid>
                               <Grid.RowDefinitions>
@@ -40,9 +47,11 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
     
                           </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Name}"></Label>
-                
-                            </Grid>
+                                <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="0"></Label>
+                                    <Label Text="{Binding IsAdmin}" Grid.Row="0" Grid.Column="1"></Label>
+                                    <Label Text="{Binding IsBanned}" Grid.Row="0" Grid.Column="2"></Label>
+
+                                </Grid>
                             </SwipeView>
                         </DataTemplate>
 

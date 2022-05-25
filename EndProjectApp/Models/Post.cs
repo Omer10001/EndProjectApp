@@ -10,7 +10,7 @@ namespace EndProjectApp.Models
         public Post()
         {
             Comments = new List<Comment>();
-            TagsInPosts = new List<TagsInPost>();
+           
             LikesInPosts = new List<LikesInPost>();
         }
 
@@ -19,7 +19,7 @@ namespace EndProjectApp.Models
         public int UserId { get; set; }
         public int NumOfLikes { get; set; }
         public string Text { get; set; }
-        public string Image { get; set; }
+      
         public string Title { get; set; }
         public DateTime TimeCreated { get; set; }
 
@@ -27,6 +27,6 @@ namespace EndProjectApp.Models
         public virtual User User { get; set; }
         public virtual List<LikesInPost> LikesInPosts { get; set; }
         public virtual List<Comment> Comments { get; set; }
-        public virtual List<TagsInPost> TagsInPosts { get; set; }
+      
     }
 }

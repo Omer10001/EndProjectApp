@@ -63,11 +63,12 @@ namespace EndProjectApp.ViewModels
         {
             if (!((App)App.Current).CurrentUser.IsAdmin)
                 App.Current.MainPage.Navigation.PopAsync();
+            UserList = new ObservableCollection<User>();
             GetUsers();
         }
         public async void GetUsers()
         {
-           UserList = new ObservableCollection<User>();
+           
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             List<User> u = await proxy.GetUsersAsync();
             if (u != null)
@@ -78,5 +79,43 @@ namespace EndProjectApp.ViewModels
                 }
             }
         }
+        public ICommand BanUserCommand => new Command<User>(BanUser);
+        public async void BanUser(User u)
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            if (u.IsBanned == false)
+                u.IsBanned = true;
+            else
+                u.IsBanned = false;
+            bool success = await proxy.UpdateUser(u);
+            if (success)
+            {
+                await App.Current.MainPage.DisplayAlert("Success", "User Ban Updated", "OK");
+                Refresh();
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Something went wrong", "OK");
+            }
+        }
+        public ICommand PromoteUserCommand => new Command<User>(PromoteUser);
+        public async void PromoteUser(User u)
+        {
+            EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            u.IsAdmin = true;
+            bool success = await proxy.UpdateUser(u);
+            if (success)
+            {
+                await App.Current.MainPage.DisplayAlert("Success", "User Admin Updated", "OK");
+                Refresh();
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Something went wrong", "OK");
+            }
+        }
+
     }
 }

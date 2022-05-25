@@ -8,7 +8,7 @@ namespace EndProjectApp.Models
     {
         public int Id { get; set; }
         public int TopicId { get; set; }
-        public int Score { get; set; }
+        public decimal Score { get; set; }
         public int UserId { get; set; }
         public string Text { get; set; }
         public DateTime TimeCreated { get; set; }

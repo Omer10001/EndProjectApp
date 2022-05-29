@@ -133,6 +133,10 @@ namespace EndProjectApp.ViewModels
 
                         await App.Current.MainPage.DisplayAlert("Error", "Login Failed", "Okey");
                     }
+                    else if(user.IsBanned)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", "You are banned, contact an admin if you want to be unbanned", "Okey");
+                    }
                     else
                     {
 

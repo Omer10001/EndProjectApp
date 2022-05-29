@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using EndProjectApp.Services;
 
 
 
@@ -22,6 +24,17 @@ namespace EndProjectApp.Models
       
         public string Title { get; set; }
         public DateTime TimeCreated { get; set; }
+        public string ImgSource
+        {
+            get
+            {
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                //Create a source with cache busting!
+                Random r = new Random();
+                string source = $"{proxy.GetBasePhotoUri()}/Post{this.Id}.jpg?{r.Next()}";
+                return source;
+            }
+        }
 
         public virtual Topic Topic { get; set; }
         public virtual User User { get; set; }

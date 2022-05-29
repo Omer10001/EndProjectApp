@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace EndProjectApp.ViewModels
 {
-    class CreatePostPageVM
+    class CreatePostPageVM:INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -112,13 +112,24 @@ namespace EndProjectApp.ViewModels
 
                 };
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                bool fine = await proxy.CreatePostAsync(p);
-                if (fine)
+                Post newPost = await proxy.CreatePostAsync(p);
+                if (newPost!= null)
                 {
+                    if(this.imageFileResult!= null)
+                    {
+                        bool success = await proxy.UploadImage(new FileInfo()
+                        {
+                            Name = this.imageFileResult.FullPath
+                        }, $"Post{newPost.Id}.jpg");
+                    }
                     await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
                     Title = string.Empty;
                     Text = string.Empty;
+                  
+                    if (SetImageSourceEvent != null)
+                        SetImageSourceEvent(null);
                     PickedTopic = null;
+
 
                     
                 }
@@ -155,8 +166,11 @@ namespace EndProjectApp.ViewModels
             get => postImgSrc;
             set
             {
-                postImgSrc = value;
-                OnPropertyChanged("PostImgSrc");
+                if (postImgSrc != value)
+                {
+                    postImgSrc = value;
+                    OnPropertyChanged("PostImgSrc");
+                }
             }
         }
         ///The following command handle the pick photo button

@@ -8,12 +8,27 @@
 
     <ContentPage.Content>
         <StackLayout >
-            <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="{Binding PickedTopic}" ItemDisplayBinding="{Binding Name}"/>
-            <Entry Placeholder="Title" Text="{Binding Title,Mode=TwoWay}"  />
             
+                <Picker Title="Select Game"  ItemsSource="{Binding TopicList}" SelectedItem="{Binding PickedTopic}" ItemDisplayBinding="{Binding Name}"/>
+            <Entry Placeholder="Title" Text="{Binding Title,Mode=TwoWay}"  />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Label Text="image(optional):"></Label>
+                <Image x:Name="theImage" Source="{Binding PostImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                <Button Text="Pick Photo" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
+                <Button Text="Take Photo" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+            </Grid>
             <Editor Placeholder="Text" Text="{Binding Text,Mode=TwoWay}" AutoSize="TextChanges"    />
             <Button Text="Create" Command="{Binding CreatePostCommand}" />
-            
+  
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

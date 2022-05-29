@@ -283,7 +283,7 @@ namespace EndProjectApp.Services
         {
             try
             {
-                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/UserList");
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetUsers");
                 if (response.IsSuccessStatusCode)
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -387,18 +387,25 @@ namespace EndProjectApp.Services
                 return null;
             }
         }
-        public async Task<bool> CreatePostAsync(Post p)
+        public async Task<Post> CreatePostAsync(Post p)
         {
             try
             {
                 string userJson = JsonSerializer.Serialize(p);
                 StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/CreatePost", stringContent);
-                return response.IsSuccessStatusCode;
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                    PropertyNameCaseInsensitive = true
+                };
+                string content = await response.Content.ReadAsStringAsync();
+                Post newPost = JsonSerializer.Deserialize<Post>(content, options);
+                return newPost;
             }
             catch (Exception e)
             {
-                return false;
+                return null;
             }
         }
         public async Task<bool> LikePost(PostDTO p)

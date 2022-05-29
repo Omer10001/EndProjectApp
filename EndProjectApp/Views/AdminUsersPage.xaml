@@ -19,7 +19,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modals:User">
                             <SwipeView >
-                                <SwipeView.LeftItems>
+                                <SwipeView.RightItems>
                                         <SwipeItems>
                                             <SwipeItem Text="Ban"
                                           
@@ -33,7 +33,7 @@
                                            CommandParameter="{Binding}" />
                                     </SwipeItems>
                                     
-                                    </SwipeView.LeftItems>
+                                    </SwipeView.RightItems>
                                     <Grid>
                               <Grid.RowDefinitions>
                                  

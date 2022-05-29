@@ -18,7 +18,7 @@ x:DataType="local:AcountPageVM"
             <Button Command="{Binding LogoutCommand}" Text="Log Out"></Button>
 
             <Label Text="Admin Stuff" FontSize="Large" IsVisible="{Binding IsAdmin}"></Label>
-                <Label Text="Add New Tag" IsVisible="{Binding IsAdmin}"></Label>
+              
           
                 
 
@@ -26,7 +26,7 @@ x:DataType="local:AcountPageVM"
                 <Entry Placeholder="Game Name" Text="{Binding GameName}" IsVisible="{Binding IsAdmin}"></Entry>
                 <Entry Placeholder="Game Description" Text="{Binding GameDescription}" IsVisible="{Binding IsAdmin}"></Entry>
                 <Button Command="{Binding AddGameCommand}" Text="Add Game" IsVisible="{Binding IsAdmin}" ></Button>
-                <Button Command="{Binding GoToAdminUsersPageCommand}" Text="Add Game" IsVisible="{Binding IsAdmin}" ></Button>
+                <Button Command="{Binding GoToAdminUsersPageCommand}" Text="See All Users" IsVisible="{Binding IsAdmin}" ></Button>
 
                
             </StackLayout>

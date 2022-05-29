@@ -7,6 +7,7 @@ using EndProjectApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using EndProjectApp.ViewModels;
+using EndProjectApp.Models;
 
 namespace EndProjectApp.Views
 {
@@ -21,7 +22,8 @@ namespace EndProjectApp.Views
         }
         public void OnSetImageSource(ImageSource imgSource)
         {
-            
+
+            theImage.Source = imgSource;
         }
     }
 }

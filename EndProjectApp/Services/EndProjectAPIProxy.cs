@@ -212,18 +212,26 @@ namespace EndProjectApp.Services
         }
 
         
-        public async Task<bool> AddGameAsync(Topic t)
+        public async Task<Topic> AddGameAsync(Topic t)
         {
             try
             {
                 string userJson = JsonSerializer.Serialize(t);
                 StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/AddGame", stringContent);
-                return response.IsSuccessStatusCode;
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                    PropertyNameCaseInsensitive = true
+                };
+                string content = await response.Content.ReadAsStringAsync();
+                Topic newTopic = JsonSerializer.Deserialize<Topic>(content, options);
+                return newTopic;
+                
             }
             catch (Exception e)
             {
-                return false;
+                return null;
             }
             }
 
@@ -484,7 +492,31 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-        
+        public async Task<bool> DeletePost(Post p)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
+
+
+
+
+            };
+
+            try
+            {
+
+                string userJson = JsonSerializer.Serialize(p, options);
+                StringContent stringContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await this.client.PostAsync($"{this.baseUri}/DeletePost", stringContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
    

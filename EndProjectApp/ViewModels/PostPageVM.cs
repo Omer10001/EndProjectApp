@@ -23,6 +23,13 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+        public bool IsAdmin
+        {
+            get
+            {
+                return ((App)App.Current).CurrentUser.IsAdmin;
+            }
+        }
         private PostDTO post;
         public PostDTO Post
         {
@@ -221,6 +228,30 @@ namespace EndProjectApp.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("Success", "Comment added successfully", "Okay");
                     Refresh();
+                }
+
+                else
+                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+
+
+            }
+            catch
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
+        }
+        public ICommand DeletePostCommand => new Command(DeletePost);
+        private async void DeletePost()
+        {
+            try
+            {
+                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+               
+                bool isFine = await proxy.DeletePost(Post.Post);
+                if (isFine)
+                {
+                    await App.Current.MainPage.DisplayAlert("Success", "Post deleted succesfully", "Okay");
+                    await App.Current.MainPage.Navigation.PopAsync();
                 }
 
                 else

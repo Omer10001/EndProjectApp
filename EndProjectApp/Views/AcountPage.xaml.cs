@@ -15,7 +15,13 @@ namespace EndProjectApp.Views
         public AcountPage()
         {
             this.BindingContext = new AcountPageVM();
+            ((AcountPageVM)this.BindingContext).SetImageSourceEvent += OnSetImageSource;
             InitializeComponent();
+        }
+        public void OnSetImageSource(ImageSource imgSource)
+        {
+
+            theImage.Source = imgSource;
         }
     }
 }

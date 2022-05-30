@@ -183,13 +183,28 @@ namespace EndProjectApp.ViewModels
             try
             {
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+
                 Topic t = new Topic { Name = GameName , AboutText = gameDescription };
-                bool isFine = await proxy.AddGameAsync(t);
-                if (isFine)
+                Topic newTopic  = await proxy.AddGameAsync(t);
+                if (newTopic!= null)
                 {
+
+                    if (this.imageFileResult != null)
+                    {
+                        bool success = await proxy.UploadImage(new FileInfo()
+                        {
+                            Name = this.imageFileResult.FullPath
+                        }, $"Topic{newTopic.Id}.jpg");
+                    }
                     await App.Current.MainPage.DisplayAlert("Success", "Game added successfully", "Okay");
+                    if (SetImageSourceEvent != null)
+                        SetImageSourceEvent(null);
                     GameName = null;
                     GameDescription = null;
+                    //refresh the main page 
+                    int count = App.Current.MainPage.Navigation.NavigationStack.Count();
+                    App.Current.MainPage.Navigation.InsertPageBefore(new Views.MainTabbedPage(), (Page)App.Current.MainPage.Navigation.NavigationStack[count-1]);
+
                 }
                     
                 else
@@ -197,9 +212,62 @@ namespace EndProjectApp.ViewModels
 
 
             }
-            catch
+            catch( Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+            }
+        }
+        private string topicImgSrc;
+        public string TopicImgSrc
+        {
+            get => topicImgSrc;
+            set
+            {
+                if (topicImgSrc != value)
+                {
+                    topicImgSrc = value;
+                    OnPropertyChanged("TopicImgSrc");
+                }
+            }
+        }
+        ///The following command handle the pick photo button
+        FileResult imageFileResult;
+        public event Action<ImageSource> SetImageSourceEvent;
+        public ICommand PickImageCommand => new Command(OnPickImage);
+        public async void OnPickImage()
+        {
+            FileResult result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions()
+            {
+                Title = "Pick Image"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
+            }
+        }
+
+        ///The following command handle the take photo button
+        public ICommand CameraImageCommand => new Command(OnCameraImage);
+        public async void OnCameraImage()
+        {
+            var result = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions()
+            {
+                Title = "Take Photo"
+            });
+
+            if (result != null)
+            {
+                this.imageFileResult = result;
+                var stream = await result.OpenReadAsync();
+                ImageSource imgSource = ImageSource.FromStream(() => stream);
+                if (SetImageSourceEvent != null)
+                    SetImageSourceEvent(imgSource);
             }
         }
         public ICommand GoToAdminUsersPageCommand => new Command(GoToAdminUsersPage);

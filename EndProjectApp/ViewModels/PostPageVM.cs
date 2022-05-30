@@ -267,7 +267,7 @@ namespace EndProjectApp.ViewModels
         public ICommand GoToRepliesPageCommand => new Command<CommentDTO>(GoToRepliesPage);
         private void GoToRepliesPage(CommentDTO c)
         {
-            Page pa = new NavigationPage(new Views.PostPage());
+            Page pa = new Views.PostPage();
             RepliesPageVM repliesPageVM = new RepliesPageVM();
             repliesPageVM.Comment = c;
             pa.BindingContext = repliesPageVM;

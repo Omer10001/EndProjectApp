@@ -6,7 +6,9 @@
              xmlns:models="clr-namespace:EndProjectApp.Models"
              xmlns:DTO="clr-namespace:EndProjectApp.DTO"
               xmlns:fontAwsome="clr-namespace:FontAwesome"
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True"
+           
              x:DataType="local:RepliesPageVM">
     <ContentPage.Content>
         <StackLayout>

@@ -257,7 +257,33 @@ namespace EndProjectApp.Services
                 return false;
             }
         }
-
+        public async Task<DateTime> GetTime()
+        {
+            try
+            {
+                HttpResponseMessage response = await this.client.GetAsync($"{this.baseUri}/GetTime");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve, //avoid reference loops!
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string content = await response.Content.ReadAsStringAsync();
+                    DateTime t = JsonSerializer.Deserialize<DateTime>(content, options);
+                    return t;
+                }
+                else
+                {
+                    return DateTime.Now;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return DateTime.MinValue;
+            }
+        }
 
         public async Task<bool> AddCommentAsync(Comment c)
         {

@@ -46,13 +46,38 @@ namespace EndProjectApp.ViewModels
         private async void CreateReplyList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            DateTime currentTime = await proxy.GetTime();
             List<CommentDTO> c = await proxy.GetCommentsAsync();
             if (c != null)
             {
                 foreach (CommentDTO comment in c)
                 {
                     if (comment.Comment.RepliedToId == Comment.Comment.Id )
+                    {
+                        TimeSpan timeSpan = currentTime - comment.Comment.TimeCreated;
+                        if (timeSpan.TotalMinutes < 1)
+                        {
+                            comment.Comment.TimeSpanString = "Created Now";
+                        }
+                        else if (timeSpan.TotalHours < 1)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Minutes} minutes ago";
+                        }
+                        else if (timeSpan.TotalDays < 1)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Hours} hours ago";
+                        }
+                        else if (timeSpan.TotalDays < 30)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Days} days ago";
+                        }
+                        else
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Days / 30} months ago";
+                        }
                         ReplyList.Add(comment);
+                    }
+                        
                 }
             }
         }
@@ -129,7 +154,9 @@ namespace EndProjectApp.ViewModels
                 ReplyList.RemoveAt(index);
                 ReplyList.Insert(index, c);
             }
-            
+            else
+                Comment = c;
+
 
         }
         public ICommand DislikeCommentCommand => new Command<CommentDTO>(DislikeComment);
@@ -162,6 +189,8 @@ namespace EndProjectApp.ViewModels
                 ReplyList.RemoveAt(index);
                 ReplyList.Insert(index, c);
             }
+            else
+                Comment = Comment;
         }
         public ICommand AddReplyCommand => new Command(AddReply);
         private async void AddReply()
@@ -169,7 +198,7 @@ namespace EndProjectApp.ViewModels
             try
             {
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                Comment c = new Comment { PostId = Comment.Comment.Post.Id, Text = UserReply, UserId = ((App)App.Current).CurrentUser.Id, TimeCreated = DateTime.Now, RepliedToId = Comment.Comment.Id };
+                Comment c = new Comment { PostId = Comment.Comment.PostId, Text = UserReply, UserId = ((App)App.Current).CurrentUser.Id, RepliedToId = Comment.Comment.Id };
                 bool isFine = await proxy.AddCommentAsync(c);
                 if (isFine)
                 {
@@ -182,7 +211,7 @@ namespace EndProjectApp.ViewModels
 
 
             }
-            catch
+            catch(Exception e)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
             }

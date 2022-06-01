@@ -204,16 +204,40 @@ namespace EndProjectApp.ViewModels
             postPageVM.Post = p;
             pa.BindingContext = postPageVM;
             App.Current.MainPage.Navigation.PushAsync(pa);
+            selectedPost = null;
             
         }
         private async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            DateTime currentTime = await proxy.GetTime();
             List<PostDTO> p = await proxy.GetAllPostsAsync();
             if (p != null)
             {
                 foreach (PostDTO post in p)
                 {
+                    TimeSpan timeSpan = currentTime - post.Post.TimeCreated;
+                    if(timeSpan.TotalMinutes < 1)
+                    {
+                        post.Post.TimeSpanString = "Created Now";
+                    }
+                    else if(timeSpan.TotalHours < 1)
+                    {
+                        post.Post.TimeSpanString = $"{timeSpan.Minutes} minutes ago";
+                    }
+                    else if(timeSpan.TotalDays < 1)
+                    {
+                        post.Post.TimeSpanString = $"{timeSpan.Hours} hours ago";
+                    }
+                    else if (timeSpan.TotalDays < 30)
+                    {
+                        post.Post.TimeSpanString = $"{timeSpan.Days} days ago";
+                    }
+                    else
+                    {
+                        post.Post.TimeSpanString = $"{timeSpan.Days / 30} months ago";
+                    }
+
                     PostList.Add(post);
                 }
             }

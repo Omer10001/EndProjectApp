@@ -208,7 +208,7 @@ namespace EndProjectApp.ViewModels
                 }
                     
                 else
-                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+                    await App.Current.MainPage.DisplayAlert("Error", "Game already exists", "Okay");
 
 
             }

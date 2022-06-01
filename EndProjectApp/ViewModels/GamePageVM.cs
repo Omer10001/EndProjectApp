@@ -184,13 +184,39 @@ namespace EndProjectApp.ViewModels
         public async void CreatePostList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            DateTime currentTime = await proxy.GetTime();
             List<PostDTO> p = await proxy.GetAllPostsAsync();
             if (p != null)
             {
                 foreach (PostDTO post in p)
                 {
                     if(post.Post.TopicId == Topic.Id)
-                    PostList.Add(post);
+                    {
+                        TimeSpan timeSpan = currentTime - post.Post.TimeCreated;
+                        if (timeSpan.TotalMinutes < 1)
+                        {
+                            post.Post.TimeSpanString = "Created Now";
+                        }
+                        else if (timeSpan.TotalHours < 1)
+                        {
+                            post.Post.TimeSpanString = $"{timeSpan.Minutes} minutes ago";
+                        }
+                        else if (timeSpan.TotalDays < 1)
+                        {
+                            post.Post.TimeSpanString = $"{timeSpan.Hours} hours ago";
+                        }
+                        else if (timeSpan.TotalDays < 30)
+                        {
+                            post.Post.TimeSpanString = $"{timeSpan.Days} days ago";
+                        }
+                        else 
+                        {
+                            post.Post.TimeSpanString = $"{timeSpan.Days / 30} months ago";
+                        }
+
+                        PostList.Add(post);
+                    }
+                    
                 }
             }
             else
@@ -275,13 +301,38 @@ namespace EndProjectApp.ViewModels
         public async void CreateReviewList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            DateTime currentTime = await proxy.GetTime();
             List<Review> r = await proxy.GetReviewsAsync();
             if (r != null)
             {
                 foreach (Review review in r)
                 {
                     if (review.TopicId == Topic.Id)
+                    {
+                        TimeSpan timeSpan = currentTime - review.TimeCreated;
+                        if (timeSpan.TotalMinutes < 1)
+                        {
+                            review.TimeSpanString = "Created Now";
+                        }
+                        else if (timeSpan.TotalHours < 1)
+                        {
+                            review.TimeSpanString = $"{timeSpan.Minutes} minutes ago";
+                        }
+                        else if (timeSpan.TotalDays < 1)
+                        {
+                            review.TimeSpanString = $"{timeSpan.Hours} hours ago";
+                        }
+                        else if(timeSpan.TotalDays < 30)
+                        {
+                            review.TimeSpanString = $"{timeSpan.Days} days ago";
+                        }
+                        else
+                        {
+                            review.TimeSpanString = $"{timeSpan.Days / 30} months ago";
+                        }
                         ReviewList.Add(review);
+                    }
+                        
                 }
             }
         }

@@ -24,6 +24,7 @@ namespace EndProjectApp.Models
       
         public string Title { get; set; }
         public DateTime TimeCreated { get; set; }
+        public string TimeSpanString { get; set; }
         public string ImgSource
         {
             get

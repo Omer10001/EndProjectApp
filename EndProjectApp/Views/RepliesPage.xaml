@@ -29,11 +29,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding Comment.Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-                <Label Text="{Binding Comment.Comment.TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                <Label Text="{Binding Comment.Comment.TimeSpanString}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
                 <Label Text="{Binding Comment.Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
-                <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Comment.LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Comment.LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding LikeCommentCommand}" CommandParameter="{Binding Comment}"></Button>
                 <Label Text="{Binding Comment.Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
-                <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding Comment.DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding Comment.DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding DislikeCommentCommand}" CommandParameter="{Binding Comment}"></Button>
               
             </Grid>
             <ScrollView>
@@ -61,13 +61,12 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="{Binding Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-                                    <Label Text="{Binding Comment.TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding Comment.TimeSpanString}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
                                     <Label Text="{Binding Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
                                     <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
                                     <Label Text="{Binding Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
                                     <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
-                                    <Button Text="Reply" Grid.Row="3" Grid.Column="3"></Button>
-
+                                    
 
                                 </Grid>
                             </DataTemplate>

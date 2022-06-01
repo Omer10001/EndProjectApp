@@ -7,9 +7,12 @@
              xmlns:DTO="clr-namespace:EndProjectApp.DTO"
               xmlns:fontAwsome="clr-namespace:FontAwesome"
              NavigationPage.HasNavigationBar="False"
+              NavigationPage.HasBackButton="true"
              x:DataType="local:PostPageVM">
     <ContentPage.Content>
+        
         <StackLayout>
+            
             <Grid >
                 <Grid.RowDefinitions >
                     <RowDefinition Height="40"  />
@@ -31,13 +34,13 @@
                 <Label Text="{Binding Post.Post.Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"  TextColor="Gray" FontSize="Small"></Label>
                 <Button Text="Delete Post" IsVisible="{Binding IsAdmin} " Command="{Binding DeletePostCommand}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3"></Button>
                 <Label Text="{Binding Post.Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                <Label Text="{Binding Post.Post.TimeCreated}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                <Label Text="{Binding Post.Post.TimeSpanString}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
                 <Label Text="{Binding Post.Post.Text}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
                 <Image Source="{Binding Post.Post.ImgSource}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6"></Image>
                 <Label Text="{Binding Post.Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
                 <Button Grid.Row="5"  Grid.Column="0" Command="{Binding LikePostCommand}"  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Post.LikedIconFont}" ></Button>
                 <Label Grid.Row="5" Grid.Column="1" Text="{Binding Post.Post.NumOfLikes}"></Label>
-                <Button Grid.Row="5" Grid.Column="2" Command="{Binding DislikePostCommand}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding Post.LikedIconFont}" ></Button>
+                <Button Grid.Row="5" Grid.Column="2" Command="{Binding DislikePostCommand}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding Post.DisLikedIconFont}" ></Button>
             </Grid>
             <ScrollView>
                 <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}">
@@ -64,7 +67,7 @@
                                     </Grid.ColumnDefinitions>
                                     
                                     <Label Text="{Binding Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-                                    <Label Text="{Binding Comment.TimeCreated}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
+                                    <Label Text="{Binding Comment.TimeSpanString}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
                                     <Label Text="{Binding Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
                                     <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
                                     <Label Text="{Binding Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>

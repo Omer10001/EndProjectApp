@@ -36,8 +36,12 @@ namespace EndProjectApp.ViewModels
             get { return post; }
             set
             {
-                post = value;
-                OnPropertyChanged("Post");
+               
+                
+                    post = value;
+                    OnPropertyChanged("Post");
+                
+                
             }
         }
         private ObservableCollection<CommentDTO> commentList;
@@ -53,13 +57,38 @@ namespace EndProjectApp.ViewModels
         private async void CreateCommentList()
         {
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+            DateTime currentTime = await proxy.GetTime();
             List<CommentDTO> c = await proxy.GetCommentsAsync();
             if (c != null)
             {
                 foreach (CommentDTO comment in c)
                 {
                     if(comment.Comment.PostId == Post.Post.Id && comment.Comment.RepliedToId == null)
-                    CommentList.Add(comment);
+                    {
+                        TimeSpan timeSpan = currentTime - comment.Comment.TimeCreated;
+                        if (timeSpan.TotalMinutes < 1)
+                        {
+                            comment.Comment.TimeSpanString = "Created Now";
+                        }
+                        else if (timeSpan.TotalHours < 1)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Minutes} minutes ago";
+                        }
+                        else if (timeSpan.TotalDays < 1)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Hours} hours ago";
+                        }
+                        else if (timeSpan.TotalDays < 30)
+                        {
+                            comment.Comment.TimeSpanString = $"{timeSpan.Days} days ago";
+                        }
+                        else
+                        {
+                           comment.Comment.TimeSpanString = $"{timeSpan.Days / 30} months ago";
+                        }
+                        CommentList.Add(comment);
+                    }
+                    
                 }
             }
         }
@@ -189,6 +218,7 @@ namespace EndProjectApp.ViewModels
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
 
             await proxy.LikePost(Post);
+            Post = Post;
            
 
         }
@@ -215,6 +245,7 @@ namespace EndProjectApp.ViewModels
             }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             await proxy.LikePost(Post);
+            Post = Post;
             
         }
         private async void AddComment()
@@ -222,7 +253,7 @@ namespace EndProjectApp.ViewModels
             try
             {
                 EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                Comment c = new Comment { PostId = Post.Post.Id, Text = UserComment, UserId = ((App)App.Current).CurrentUser.Id, TimeCreated = DateTime.Now };
+                Comment c = new Comment { PostId = Post.Post.Id, Text = UserComment, UserId = ((App)App.Current).CurrentUser.Id };
                 bool isFine = await proxy.AddCommentAsync(c);
                 if (isFine)
                 {
@@ -267,7 +298,7 @@ namespace EndProjectApp.ViewModels
         public ICommand GoToRepliesPageCommand => new Command<CommentDTO>(GoToRepliesPage);
         private void GoToRepliesPage(CommentDTO c)
         {
-            Page pa = new Views.PostPage();
+            Page pa = new Views.RepliesPage();
             RepliesPageVM repliesPageVM = new RepliesPageVM();
             repliesPageVM.Comment = c;
             pa.BindingContext = repliesPageVM;

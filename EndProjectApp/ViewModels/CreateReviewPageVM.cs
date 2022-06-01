@@ -40,7 +40,7 @@ namespace EndProjectApp.ViewModels
         private Double score;
         public Double Score
         {
-            get { return score; }
+            get { return ((double)((int)(score*10)))/10; }
             set
             {
                 if(score != value)
@@ -72,10 +72,9 @@ namespace EndProjectApp.ViewModels
             {
                 Review review = new Review
                 {
-                    Score = (int)Score, //change this
+                    Score =(decimal)Score,
                     Text = ReviewText,
                     TopicId = ThisTopic.Id,
-                    TimeCreated = DateTime.Now,
                     UserId = ((App)App.Current).CurrentUser.Id
 
                 };

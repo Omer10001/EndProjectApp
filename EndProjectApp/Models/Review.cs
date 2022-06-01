@@ -13,6 +13,7 @@ namespace EndProjectApp.Models
         public string Text { get; set; }
         public DateTime TimeCreated { get; set; }
 
+        public string TimeSpanString { get; set; }
         public virtual Topic Topic { get; set; }
         public virtual User User { get; set; }
     }

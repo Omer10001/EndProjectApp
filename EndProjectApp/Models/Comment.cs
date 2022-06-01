@@ -20,7 +20,7 @@ namespace EndProjectApp.Models
         public int NumOfLikes { get; set; }
         public string Text { get; set; }
         public DateTime TimeCreated { get; set; }
-
+        public string TimeSpanString { get; set; }
         public virtual Post Post { get; set; }
         public virtual Comment RepliedTo { get; set; }
         public virtual User User { get; set; }

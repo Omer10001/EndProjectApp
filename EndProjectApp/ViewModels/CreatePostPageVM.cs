@@ -22,19 +22,115 @@ namespace EndProjectApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-       private Topic pickedTopic;
+        #region Validations
+        private bool showPickedTopicError;
+        public bool ShowPickedTopicError
+        {
+            get { return showPickedTopicError; }
+            set
+            {
+                showPickedTopicError = value;
+                OnPropertyChanged("ShowPickedTopicError");
+            }
+        }
+        private bool showTitleError;
+        public bool ShowTitleError
+        {
+            get { return showTitleError; }
+            set
+            {
+                showTitleError = value;
+                OnPropertyChanged("ShowTitleError");
+            }
+        }
+        private bool showTextError;
+        public bool ShowTextError
+        {
+            get { return showTextError; }
+            set
+            {
+                showTextError = value;
+                OnPropertyChanged("ShowTextError");
+            }
+        }
+        private string pickedTopicError;
+        public string PickedTopicError
+        {
+            get { return pickedTopicError; }
+            set
+            {
+                pickedTopicError = value;
+                OnPropertyChanged("PickedTopicError");
+            }
+        }
+        private string titleError;
+        public string TitleError
+        {
+            get { return titleError; }
+            set
+            {
+                titleError = value;
+                OnPropertyChanged("TitleError");
+            }
+        }
+        private string textError;
+        public string TextError
+        {
+            get { return textError; }
+            set
+            {
+                textError = value;
+                OnPropertyChanged("TextError");
+            }
+        }
+        private void ValidateTopic()
+        {
+            if (PickedTopic == null)
+                ShowPickedTopicError = true;
+            else
+                showPickedTopicError = false;
+            if (showPickedTopicError)
+                PickedTopicError = "Please Select Game";
+        }
+        private void ValidateTitle()
+        {
+            ShowTitleError = string.IsNullOrEmpty(title);
+            if (showTitleError)
+                TitleError = "please put a title";
+        }
+        private void ValidateText()
+        {
+            ShowTextError = string.IsNullOrEmpty(Text);
+            if (showTextError)
+                TextError = "please put Text";
+        }
+        
+        private bool ValidateForm()
+        {
+            ValidateTopic();
+            ValidateTitle();
+            ValidateText();
+
+            if (showPickedTopicError || showTitleError || showTextError )
+                return false;
+            else
+                return true;
+
+        }
+        #endregion
+        private Topic pickedTopic;
         public Topic PickedTopic
         {
             get { return pickedTopic; }
             set
             {
-                if(pickedTopic != value)
+                if (pickedTopic != value)
                 {
                     pickedTopic = value;
-
+                    ValidateTopic();
                     OnPropertyChanged("PickedTopic");
                 }
-               
+
             }
         }
         private string title;
@@ -46,6 +142,7 @@ namespace EndProjectApp.ViewModels
                 if (title != value)
                 {
                     title = value;
+                    ValidateTitle();
 
                     OnPropertyChanged("Title");
                 }
@@ -60,7 +157,7 @@ namespace EndProjectApp.ViewModels
                 if (text != value)
                 {
                     text = value;
-
+                    ValidateText();
                     OnPropertyChanged("Text");
                 }
             }
@@ -96,46 +193,52 @@ namespace EndProjectApp.ViewModels
         {
             try
             {
-                Post p = new Post
+                if (ValidateForm())
                 {
-                    TopicId = pickedTopic.Id,
-                    NumOfLikes = 0,
-                    Text = text,
-                    TimeCreated = DateTime.Now,
-                    Title = title,
-                    UserId = ((App)App.Current).CurrentUser.Id,
-
-
-
-
-
-
-                };
-                EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
-                Post newPost = await proxy.CreatePostAsync(p);
-                if (newPost!= null)
-                {
-                    if(this.imageFileResult!= null)
+                    Post p = new Post
                     {
-                        bool success = await proxy.UploadImage(new FileInfo()
+                        TopicId = pickedTopic.Id,
+                        NumOfLikes = 0,
+                        Text = text,
+
+                        Title = title,
+                        UserId = ((App)App.Current).CurrentUser.Id,
+
+
+
+
+
+
+                    };
+                    EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
+                    Post newPost = await proxy.CreatePostAsync(p);
+                    if (newPost != null)
+                    {
+                        if (this.imageFileResult != null)
                         {
-                            Name = this.imageFileResult.FullPath
-                        }, $"Post{newPost.Id}.jpg");
+                            bool success = await proxy.UploadImage(new FileInfo()
+                            {
+                                Name = this.imageFileResult.FullPath
+                            }, $"Post{newPost.Id}.jpg");
+                        }
+                        await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
+                        Title = string.Empty;
+                        Text = string.Empty;
+
+                        if (SetImageSourceEvent != null)
+                            SetImageSourceEvent(null);
+                        PickedTopic = null;
+
+                        
+
                     }
-                    await App.Current.MainPage.DisplayAlert("Success", "Post created successfuly", "Okay");
-                    Title = string.Empty;
-                    Text = string.Empty;
-                  
-                    if (SetImageSourceEvent != null)
-                        SetImageSourceEvent(null);
-                    PickedTopic = null;
 
-
-                    
+                    else
+                        await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
                 }
-                   
                 else
-                    await App.Current.MainPage.DisplayAlert("Error", "something went wrong", "Okay");
+                    await App.Current.MainPage.DisplayAlert("Error", "Create Post Failed, make sure all the fields are good", "okay");
+                
             }
             catch(Exception e)
             {

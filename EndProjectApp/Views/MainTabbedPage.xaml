@@ -8,13 +8,21 @@
              x:Class="EndProjectApp.Views.MainTabbedPage"
             xmlns:andorid="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             andorid:TabbedPage.ToolbarPlacement="Bottom">
-    <local:MainPage  Title="Main" >
+    <local:MainPage   >
         <local:MainPage.IconImageSource>
             <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.House}"></FontImageSource>
         </local:MainPage.IconImageSource>
     </local:MainPage>
-    <local:CreatePostPage Title="Create Post"> </local:CreatePostPage>
-    <local:SearchPage Title="Search "/>
+    <local:CreatePostPage>
+        <local:CreatePostPage.IconImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.Plus}"></FontImageSource>
+        </local:CreatePostPage.IconImageSource>
+    </local:CreatePostPage>
+    <local:SearchPage>
+        <local:SearchPage.IconImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.MagnifyingGlass}"></FontImageSource>
+        </local:SearchPage.IconImageSource>
+    </local:SearchPage>
 
 
 </TabbedPage>

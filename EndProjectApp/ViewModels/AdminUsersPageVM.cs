@@ -82,6 +82,11 @@ namespace EndProjectApp.ViewModels
         public ICommand BanUserCommand => new Command<User>(BanUser);
         public async void BanUser(User u)
         {
+            if(u.IsAdmin )
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "You Can't ban an admin", "OK");
+                return;
+            }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             if (u.IsBanned == false)
                 u.IsBanned = true;
@@ -102,6 +107,11 @@ namespace EndProjectApp.ViewModels
         public ICommand PromoteUserCommand => new Command<User>(PromoteUser);
         public async void PromoteUser(User u)
         {
+            if(u.IsBanned)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "You can't promote someone that is banned", "OK");
+                return;
+            }
             EndProjectAPIProxy proxy = EndProjectAPIProxy.CreateProxy();
             u.IsAdmin = true;
             bool success = await proxy.UpdateUser(u);

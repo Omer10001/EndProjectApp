@@ -22,11 +22,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="50" />
+                    <RowDefinition Height="200" />
                 </Grid.RowDefinitions>
-                <Label Text="image(optional):"></Label>
-                <Image x:Name="theImage" Source="{Binding PostImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-                <Button Text="Pick Photo" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
-                <Button Text="Take Photo" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+                <Label Text="Image(optional):" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="15"></Label>
+                <Image x:Name="theImage" Source="{Binding PostImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
+                <Button Text="Pick Photo" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="1" Command="{Binding PickImageCommand}"/>
+                <Button Text="Take Photo" HorizontalOptions="Start" Grid.Column="1" Grid.Row="1" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
             </Grid>
             <Editor Placeholder="Text" Text="{Binding Text,Mode=TwoWay}" AutoSize="TextChanges"    />
             <Label Text="{Binding TextError}" IsVisible="{Binding ShowTextError}" Style="{DynamicResource labelErrorStyle}"></Label>

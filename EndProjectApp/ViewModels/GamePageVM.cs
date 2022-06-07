@@ -274,7 +274,7 @@ namespace EndProjectApp.ViewModels
                 if (IsReviewRefresh != value)
                 {
                     isReviewRefresh = value;
-                    OnPropertyChanged("IsRefresh");
+                    OnPropertyChanged("IsReviewRefresh");
                 }
             }
         }

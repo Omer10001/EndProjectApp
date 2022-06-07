@@ -9,13 +9,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Label Text="Welcome to this app" FontSize="10" Grid.Column="0" Grid.Row="0" />
-                <Button Text="Login" Command="{Binding GoToLoginCommand}" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" />
-                <Button Text="SignUp" Command="{Binding GoToSignupCommand}" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="2" />
+                <Label Text="Welcome to this app" FontSize="30" Grid.Column="0" Grid.Row="0" />
+                <Button Text="Login" Command="{Binding GoToLoginCommand}" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" CornerRadius="30"  />
+                <Button Text="SignUp" Command="{Binding GoToSignupCommand}" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="2" CornerRadius="30" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

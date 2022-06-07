@@ -17,13 +17,13 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="200" />
                 </Grid.ColumnDefinitions>
-                <Button Text="{x:Static fontAwsome:FontAwesomeIcons.Gear}" FontFamily="FAS" Command="{Binding GoToAccountCommand}" Grid.Column="3" />
+                <Button Text="{x:Static fontAwsome:FontAwesomeIcons.Gear}" FontFamily="FAS" Command="{Binding GoToAccountCommand}" Grid.Column="3" VerticalOptions="End" />
 
             </Grid>
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
-                <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectedItem="{Binding SelectedPost}" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}">
+                <CollectionView x:Name="collectionName" ItemsSource="{Binding PostList}" SelectionMode="Single" SelectedItem="{Binding SelectedPost}" SelectionChangedCommand="{Binding GoToPostPageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}" EmptyView="No Posts">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                            ItemSpacing="20" />
@@ -36,7 +36,8 @@
                                     <RowDefinition Height="20"  />
                                     <RowDefinition Height="15" />
                                     <RowDefinition Height="auto" />
-                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="35" />
                                     </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40" />
@@ -52,10 +53,11 @@
                                 <Label Text="{Binding Post.TimeSpanString}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
 
                                     <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}"  ></Button>
-                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding DisLikedIconFont}"></Button>
-                                    <Label Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Label>
+                                    <Image Source="{Binding Post.ImgSource}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"></Image>
+                                    <Button Grid.Row="4" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}"  ></Button>
+                                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding Post.NumOfLikes}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                                    <Button Grid.Row="4" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding DisLikedIconFont}" ></Button>
+                                    <Label Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3"></Label>
                                   
 
 

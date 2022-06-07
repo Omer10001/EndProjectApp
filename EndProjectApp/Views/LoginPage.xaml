@@ -26,7 +26,7 @@
                 </Grid.RowDefinitions>
                 <Label Text="Email:"  Grid.Column="0" Grid.Row="0" />
                 <Entry  Text="{Binding Email}" Placeholder="Email"    Keyboard="Email" ReturnType="Done" 
-                                     Grid.Column="0" Grid.Row="1"        />
+                                     Grid.Column="0" Grid.Row="1"       />
                 <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} " Grid.Column="0" Grid.Row="2"/>
 
                 <Label Text="Password:" Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />

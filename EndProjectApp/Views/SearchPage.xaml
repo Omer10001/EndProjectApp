@@ -8,7 +8,7 @@
         <StackLayout>
             <SearchBar x:Name="searchBar" 
                        Placeholder="Search game communities" 
-                       Text="{Binding SearchTerm}"
+                       Text="{Binding SearchTerm}" FontSize="Large"
                        />
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
                 <CollectionView x:Name="collectionName" ItemsSource="{Binding FilteredTopics}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToGamePageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}">
@@ -19,7 +19,16 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="modals:Topic">
                             <Frame>
-                                <Label Text="{Binding Name}"></Label>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImgSource}" Grid.Column="0"></Image>
+                                    <Label Text="{Binding Name}" FontSize="Large" Grid.Column="1" Grid.ColumnSpan="4"></Label>
+                                </Grid>
                             </Frame>
 
                         </DataTemplate>

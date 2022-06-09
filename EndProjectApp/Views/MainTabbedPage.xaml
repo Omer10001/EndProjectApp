@@ -10,17 +10,17 @@
             andorid:TabbedPage.ToolbarPlacement="Bottom">
     <local:MainPage   >
         <local:MainPage.IconImageSource>
-            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.House}"></FontImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.House}" Size="Large"></FontImageSource>
         </local:MainPage.IconImageSource>
     </local:MainPage>
     <local:CreatePostPage>
         <local:CreatePostPage.IconImageSource>
-            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.Plus}"></FontImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.Plus}" Size="Large"></FontImageSource>
         </local:CreatePostPage.IconImageSource>
     </local:CreatePostPage>
     <local:SearchPage>
         <local:SearchPage.IconImageSource>
-            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.MagnifyingGlass}"></FontImageSource>
+            <FontImageSource FontFamily="FAS" Glyph="{x:Static fontAwsome:FontAwesomeIcons.MagnifyingGlass}" Size="Large"></FontImageSource>
         </local:SearchPage.IconImageSource>
     </local:SearchPage>
 

@@ -34,11 +34,12 @@ x:DataType="local:AcountPageVM"
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="100" />
                     </Grid.RowDefinitions>
                     <Label Text="image(optional):"></Label>
-                    <Image x:Name="theImage" Source="{Binding TopicImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-                    <Button Text="Pick Photo" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="0" Command="{Binding PickImageCommand}"/>
-                    <Button Text="Take Photo" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
+                    <Image x:Name="theImage" Source="{Binding TopicImgSrc}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
+                    <Button Text="Pick Photo" HorizontalOptions="End" BackgroundColor="White" Grid.Column="0" Grid.Row="1" Command="{Binding PickImageCommand}"/>
+                    <Button Text="Take Photo" HorizontalOptions="Start" Grid.Column="1" Grid.Row="1" BackgroundColor="White" Command="{Binding CameraImageCommand}"/>
                 </Grid>
                 <Button Command="{Binding AddGameCommand}" Text="Add Game" IsVisible="{Binding IsAdmin}" ></Button>
                 <Button Command="{Binding GoToAdminUsersPageCommand}" Text="See All Users" IsVisible="{Binding IsAdmin}" ></Button>

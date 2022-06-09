@@ -6,12 +6,12 @@
 
             <ResourceDictionary>
                 <Style x:Key="labelNameStyle" TargetType="Label">
-                    <Setter Property="FontSize" Value="Small" />
+                    <Setter Property="FontSize" Value="Large" />
                 </Style>
                 <Style x:Key="labelErrorStyle" TargetType="Label">
                     <Setter Property="HorizontalOptions" Value="Start" />
                     <Setter Property="TextColor" Value="Red" />
-                    <Setter Property="FontSize" Value="Small" />
+                    <Setter Property="FontSize" Value="Large" />
                 </Style>
                 <Style x:Key="entryStyle" TargetType="Entry">
                     <Setter Property="HorizontalOptions" Value="Fill" />

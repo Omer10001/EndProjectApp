@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EndProjectApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using EndProjectApp.ViewModels;
+
 using EndProjectApp.Models;
 
 namespace EndProjectApp.Views

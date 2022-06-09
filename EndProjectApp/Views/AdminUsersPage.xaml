@@ -7,6 +7,7 @@
              xmlns:DTO="clr-namespace:EndProjectApp.DTO"
              xmlns:fontAwsome="clr-namespace:FontAwesome"
              NavigationPage.HasNavigationBar="False"
+             
              x:Class="EndProjectApp.Views.AdminUsersPage">
     <ContentPage.Content>
         <StackLayout>
@@ -34,24 +35,29 @@
                                     </SwipeItems>
                                     
                                     </SwipeView.RightItems>
+                                <Frame Margin="10">
                                     <Grid>
                               <Grid.RowDefinitions>
                                  
                                     <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
                                     </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                  <ColumnDefinition Width="*"></ColumnDefinition>
                                  <ColumnDefinition Width="*"></ColumnDefinition>
-                              <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
+                              
     
                           </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="0"></Label>
-                                    <Label Text="{Binding IsAdmin}" Grid.Row="0" Grid.Column="1"></Label>
-                                    <Label Text="{Binding IsBanned}" Grid.Row="0" Grid.Column="2"></Label>
+                                    <Label Text="Username:" FontSize="Large" Grid.Row="0" Grid.Column="0"></Label>
+                                <Label Text="{Binding Name}" FontSize="Large" Grid.Row="0" Grid.Column="1"></Label>
+                                    <Label Text="Is Admin:" FontSize="Large" Grid.Row="1" Grid.Column="0"></Label>
+                                    <Label Text="{Binding IsAdmin}" FontSize="Large" Grid.Row="1" Grid.Column="1"></Label>
+                                    <Label Text="Is Banned:" FontSize="Large" Grid.Row="2" Grid.Column="0"> </Label>
+                                    <Label Text="{Binding IsBanned}" FontSize="Large" Grid.Row="2" Grid.Column="1"></Label>
 
                                 </Grid>
+                                </Frame>
                             </SwipeView>
                         </DataTemplate>
 

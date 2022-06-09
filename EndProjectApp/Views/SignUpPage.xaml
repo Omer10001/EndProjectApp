@@ -10,22 +10,22 @@
         <ScrollView>
             <StackLayout>
             
-            <Entry Placeholder="UserName" Text="{Binding UserName}" />
+            <Entry Placeholder="Username" Text="{Binding UserName}" FontSize="Large"/>
                 <Label Text="{Binding UserNameError}" IsVisible="{Binding ShowUserNameError}" Style= "{DynamicResource labelErrorStyle}"/>
-                
-      
-            <Entry Placeholder="Email" Text="{Binding Email}"/>
+
+
+                <Entry Placeholder="Email" Text="{Binding Email}"  FontSize="Large"/>
                 <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style= "{DynamicResource labelErrorStyle}"/>
-               
-           
-            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+
+
+                <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" FontSize="Large"/>
                 <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style= "{DynamicResource labelErrorStyle}"/>
-               
-            <Label Text="Birthdate:" />
-            <DatePicker Date="{Binding Birthdate}" />
+
+                <Label Text="Birthdate:"  FontSize="Large"/>
+                <DatePicker Date="{Binding Birthdate}"  FontSize="Large" />
                 <Label Text="{Binding BirthdateError}" IsVisible="{Binding ShowBirthdateError}" Style= "{DynamicResource labelErrorStyle}" />
-                
-            <Button Text="SignUp" Command="{Binding SubmitCommand}" />
+
+                <Button Text="SignUp" Command="{Binding SubmitCommand}"  FontSize="Large" />
         </StackLayout>
             </ScrollView>
     </ContentPage.Content>

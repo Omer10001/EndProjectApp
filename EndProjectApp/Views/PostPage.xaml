@@ -10,13 +10,13 @@
               NavigationPage.HasBackButton="true"
              x:DataType="local:PostPageVM">
     <ContentPage.Content>
-        
-        <StackLayout>
+        <ScrollView>
+            <StackLayout>
             
             <Grid >
                 <Grid.RowDefinitions >
                     <RowDefinition Height="40"  />
-                    <RowDefinition Height="15" />
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="80" />
@@ -30,21 +30,21 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
-                <Label Text="{Binding Post.Post.Topic.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"  TextColor="Gray" FontSize="Small"></Label>
-                <Button Text="Delete Post" IsVisible="{Binding IsAdmin} " Command="{Binding DeletePostCommand}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3"></Button>
-                <Label Text="{Binding Post.Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                <Label Text="{Binding Post.Post.TimeSpanString}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                <Label Text="{Binding Post.Post.Text}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                    <Label Text="Game:" FontSize="Large" Grid.Row="0" Grid.Column="0"></Label>
+                <Label Text="{Binding Post.Post.Topic.Name}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"  TextColor="Gray" FontSize="Large"></Label>
+                <Button Text="Delete Post" IsVisible="{Binding IsAdmin} " Command="{Binding DeletePostCommand}" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="1"></Button>
+                <Label Text="{Binding Post.Post.User.Name}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Large" ></Label>
+                <Label Text="{Binding Post.Post.TimeSpanString}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Large" ></Label>
+                <Label Text="{Binding Post.Post.Text}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" TextColor="Black"  FontSize="Large" ></Label>
                 <Image Source="{Binding Post.Post.ImgSource}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6"></Image>
-                <Label Text="{Binding Post.Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                <Button Grid.Row="5"  Grid.Column="0" Command="{Binding LikePostCommand}"  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Post.LikedIconFont}" ></Button>
-                <Label Grid.Row="5" Grid.Column="1" Text="{Binding Post.Post.NumOfLikes}"></Label>
-                <Button Grid.Row="5" Grid.Column="2" Command="{Binding DislikePostCommand}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding Post.DisLikedIconFont}" ></Button>
+                <Label Text="{Binding Post.Post.Title}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="6" TextColor="Black" FontSize="Large"></Label>
+                <Button Grid.Row="5"  Grid.Column="0" FontSize="Large" Command="{Binding LikePostCommand}"  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding Post.LikedIconFont}" ></Button>
+                <Label Grid.Row="5" Grid.Column="1" Text="{Binding Post.Post.NumOfLikes}" FontSize="Large" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                    <Button Grid.Row="5" Grid.Column="2" FontSize="Large" Command="{Binding DislikePostCommand}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding Post.DisLikedIconFont}" ></Button>
             </Grid>
-            <ScrollView>
+           
                 <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}">
-                    <CollectionView x:Name="collectionName" ItemsSource="{Binding CommentList}" >
+                    <CollectionView x:Name="collectionName" ItemsSource="{Binding CommentList}"  >
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical"
                            ItemSpacing="10" />
@@ -54,8 +54,8 @@
                             <DataTemplate x:DataType="DTO:CommentDTO">
                                 <Grid>
                                     <Grid.RowDefinitions >
-                                        <RowDefinition Height="20"  />
-                                        <RowDefinition Height="15" />
+                                        <RowDefinition Height="40"  />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
@@ -64,15 +64,17 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <Label Text="{Binding Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"></Label>
-                                    <Label Text="{Binding Comment.TimeSpanString}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"></Label>
-                                    <Label Text="{Binding Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"></Label>
-                                    <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
-                                    <Label Text="{Binding Comment.NumOfLikes}"  Grid.Row="3" Grid.Column="1"></Label>
-                                    <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontFamily="{Binding DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
-                                    <Button Text="View Replies"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.GoToRepliesPageCommand}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="3"></Button>
+                                    <Label Text="{Binding Comment.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="Large" ></Label>
+                                    <Label Text="{Binding Comment.TimeSpanString}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" FontSize="Large"></Label>
+                                    <Label Text="{Binding Comment.Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="Large" TextColor="Black"></Label>
+                                    <Button Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontSize="Large" FontFamily="{Binding LikedIconFont}" Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                                    <Label Text="{Binding Comment.NumOfLikes}" FontSize="Large" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="3" Grid.Column="1"></Label>
+                                    <Button  Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown}" FontSize="Large" FontFamily="{Binding DisLikedIconFont}"  Grid.Row="3" Grid.Column="2" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommentCommand}" CommandParameter="{Binding}"></Button>
+                                    <Button Text="View Replies"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.GoToRepliesPageCommand}" CommandParameter="{Binding}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"></Button>
                                     
                                    
                                 </Grid>
@@ -83,7 +85,7 @@
                     </CollectionView>
                                     
                 </RefreshView>
-            </ScrollView>
+            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
@@ -94,9 +96,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Entry Placeholder="Write your comment" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding UserComment}"></Entry>
+                <Entry Placeholder="Write your comment" FontSize="Large" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding UserComment}"></Entry>
                 <Button Text="Add Comment" Grid.Column="3" Grid.Row="0" Command="{Binding AddCommentCommand}"></Button>
             </Grid>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

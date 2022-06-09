@@ -12,13 +12,14 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                <Label Text="Score:" Grid.Row="0"></Label>
-                <Slider Minimum="0" Maximum="10"  Value="{Binding Score}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" />
-                <Label Text="{Binding Score}" Grid.Row="0" Grid.Column="4"></Label>
-                <Entry Placeholder="Write Your Review" Text="{Binding ReviewText}" Grid.Row="1" Grid.ColumnSpan="5"></Entry>
-                <Button Text="Create Review" Grid.Row="2" Command="{Binding CreateReviewCommand}" Grid.ColumnSpan="5"></Button>
+                <Label Text="Score:" FontSize="Large" Grid.Row="0"></Label>
+                <Slider Minimum="0" Maximum="10"   Value="{Binding Score}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" />
+                <Label Text="{Binding Score}" Grid.Row="1" Grid.Column="4" FontSize="Large"></Label>
+                <Entry Placeholder="Write Your Review" FontSize="Large" Text="{Binding ReviewText}" Grid.Row="2" Grid.ColumnSpan="5"></Entry>
+                <Button Text="Create Review" Grid.Row="3" FontSize="Large" Command="{Binding CreateReviewCommand}" Grid.ColumnSpan="5"></Button>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

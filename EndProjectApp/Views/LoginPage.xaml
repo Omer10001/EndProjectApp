@@ -16,24 +16,24 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Text="Email:"  Grid.Column="0" Grid.Row="0" />
-                <Entry  Text="{Binding Email}" Placeholder="Email"    Keyboard="Email" ReturnType="Done" 
+                <Label Text="Email:" FontSize="Large" Grid.Column="0" Grid.Row="0" />
+                    <Entry  Text="{Binding Email}" Placeholder="Email"  FontSize="Large"  Keyboard="Email" ReturnType="Done" 
                                      Grid.Column="0" Grid.Row="1"       />
-                <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} " Grid.Column="0" Grid.Row="2"/>
+                    <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Style="{StaticResource labelErrorStyle} "  Grid.Column="0" Grid.Row="2"/>
 
-                <Label Text="Password:" Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />
-                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"  IsPassword="True"    Grid.Column="0" Grid.Row="4"                   />
+                    <Label Text="Password:"  Style="{StaticResource labelNameStyle}" Grid.Column="0" Grid.Row="3" />
+                    <Entry x:Name="Password" Text="{Binding Password}" FontSize="Large" Placeholder="Password"  IsPassword="True"    Grid.Column="0" Grid.Row="4"                   />
                 <Label   Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Style="{StaticResource labelErrorStyle}" Grid.Column="0" Grid.Row="5"/>
-                   
-                        <Button Text="Login" Command="{Binding SubmitCommand}" Grid.Column="0" Grid.Row="6"/>
+
+                    <Button Text="Login" Command="{Binding SubmitCommand}" FontSize="Large" Grid.Column="0" Grid.Row="6"/>
                     
                 </Grid>
         </StackLayout>

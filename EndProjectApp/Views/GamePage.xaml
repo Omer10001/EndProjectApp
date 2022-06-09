@@ -19,13 +19,20 @@
                    
 
                 </Grid.RowDefinitions>
-            <Label Text="{Binding Topic.Name}" FontSize="Header" Grid.Row="0"></Label>
-            <Label Text="{Binding Topic.AboutText}" Grid.Row="1"></Label>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Topic.ImgSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"></Image>
+            <Label Text="{Binding Topic.Name}" TextColor="Black" FontSize="Large" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"></Label>
+                <Label Text="{Binding Topic.AboutText}" FontSize="Large" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></Label>
             </Grid>
             <xct:TabView TabStripPlacement="Top" >
 
                     <xct:TabViewItem
-                  Text="Posts" >
+                  Text="Posts" FontSize="20" >
                         <Grid>
                         <ScrollView>
                             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
@@ -40,28 +47,30 @@
                                                 <Grid >
                                                     <Grid.RowDefinitions >
 
-                                                        <RowDefinition Height="15" />
+                                                        <RowDefinition Height="30" />
                                                         <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="25" />
+                                                        <RowDefinition Height="50" />
+                                                        <RowDefinition Height="Auto" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="40" />
-                                                        <ColumnDefinition Width="40" />
-                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="50" />
+                                                        <ColumnDefinition Width="50" />
                                                         <ColumnDefinition Width="50" />
                                                         <ColumnDefinition Width="50" />
                                                         <ColumnDefinition Width="50" />
                                                     </Grid.ColumnDefinitions>
 
 
-                                                    <Label Text="{Binding Post.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
-                                                    <Label Text="{Binding Post.TimeSpanString}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Small" ></Label>
+                                                    <Label Text="{Binding Post.User.Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Large" ></Label>
+                                                    <Label Text="{Binding Post.TimeSpanString}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Gray" FontSize="Large" ></Label>
 
-                                                    <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" TextColor="Black"></Label>
-                                                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" ></Button>
-                                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Post.NumOfLikes}"></Label>
-                                                    <Button Grid.Row="3" Grid.Column="2"  Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding DisLikedIconFont}"></Button>
-                                                    <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"></Label>
+                                                    <Label Text="{Binding Post.Title}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" FontSize="Large" TextColor="Black"></Label>
+                                                    <Image Source="{Binding Post.ImgSource}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6"></Image>
+                                                    <Button Grid.Row="3" Grid.Column="0" FontSize="Large" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.LikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsUp }" FontFamily="{Binding LikedIconFont}" ></Button>
+                                                    <Label Grid.Row="3" Grid.Column="1" FontSize="Large" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  Text="{Binding Post.NumOfLikes}"></Label>
+                                                    <Button Grid.Row="3" Grid.Column="2" FontSize="Large" Command="{Binding Source={x:Reference collectionName},Path=BindingContext.DislikeCommand}" CommandParameter="{Binding}" Text="{x:Static fontAwsome:FontAwesomeIcons.ThumbsDown }" FontFamily="{Binding DisLikedIconFont}"></Button>
+
 
 
 
@@ -78,7 +87,7 @@
                       
            
             </xct:TabViewItem>
-                    <xct:TabViewItem Text="Reviews">
+                <xct:TabViewItem Text="Reviews" FontSize="20">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -103,7 +112,7 @@
                                             <Grid >
                                                 <Grid.RowDefinitions >
 
-                                                    <RowDefinition Height="15" />
+                                                    <RowDefinition Height="30" />
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="25" />
                                                        
@@ -111,12 +120,16 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
 
-                                                </Grid.ColumnDefinitions>
-                                            <Label Text="{Binding Score}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>
-                                            <Label Text="{Binding User.Name}" Grid.Row="0"  Grid.Column="1"></Label>
-                                            <Label Text="{Binding TimeSpanString}" Grid.Row="1"  Grid.Column="1"></Label>
-                                            <Label Text="{Binding Text}" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"></Label>
+                                                    </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding Score}" FontSize="Large" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>
+                                                    <Label Text="/10" FontSize="Large" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"></Label>
+                                                    <Label Text="User:" FontSize="Large" Grid.Row="0" Grid.Column="2"></Label>
+                                            <Label Text="{Binding User.Name}" FontSize="Large" Grid.Row="0"  Grid.Column="3"></Label>
+                                            <Label Text="{Binding TimeSpanString}" FontSize="Large" Grid.Row="1"  Grid.Column="2" Grid.ColumnSpan="2" ></Label>
+                                            <Label Text="{Binding Text}" TextColor="Black" FontSize="Large" Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="4"></Label>
                                         </Grid>
                                             
                                         </Frame>

@@ -49,7 +49,7 @@
 
                                                         <RowDefinition Height="30" />
                                                         <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="50" />
+                                                        <RowDefinition Height="*" />
                                                         <RowDefinition Height="Auto" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
@@ -114,7 +114,7 @@
 
                                                     <RowDefinition Height="30" />
                                                     <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="25" />
+                                                    <RowDefinition Height="30" />
                                                        
                                                     </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
@@ -124,8 +124,8 @@
                                                         <ColumnDefinition Width="*" />
 
                                                     </Grid.ColumnDefinitions>
-                                            <Label Text="{Binding Score}" FontSize="Large" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>
-                                                    <Label Text="/10" FontSize="Large" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"></Label>
+                                            <Label Text="{Binding Score}" FontSize="50"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"></Label>
+                                                    <Label Text="/10" FontSize="50" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"></Label>
                                                     <Label Text="User:" FontSize="Large" Grid.Row="0" Grid.Column="2"></Label>
                                             <Label Text="{Binding User.Name}" FontSize="Large" Grid.Row="0"  Grid.Column="3"></Label>
                                             <Label Text="{Binding TimeSpanString}" FontSize="Large" Grid.Row="1"  Grid.Column="2" Grid.ColumnSpan="2" ></Label>

@@ -20,14 +20,17 @@
                         <DataTemplate x:DataType="modals:Topic">
                             <Frame>
                                 <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"></RowDefinition>
+                                    </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImgSource}" Grid.Column="0"></Image>
-                                    <Label Text="{Binding Name}" FontSize="Large" Grid.Column="1" Grid.ColumnSpan="4"></Label>
+                                    <Image Source="{Binding ImgSource}" Grid.Row="0" Grid.Column="0"></Image>
+                                    <Label Text="{Binding Name}" Grid.Row="0" FontSize="Large" Grid.Column="1" Grid.ColumnSpan="4"></Label>
                                 </Grid>
                             </Frame>
 

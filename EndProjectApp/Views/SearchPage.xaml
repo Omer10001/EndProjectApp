@@ -8,7 +8,7 @@
         <StackLayout>
             <SearchBar x:Name="searchBar" 
                        Placeholder="Search game communities" 
-                       Text="{Binding SearchTerm}" FontSize="Large"
+                       Text="{Binding SearchTerm}" FontSize="Large" 
                        />
             <RefreshView  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefresh}" >
                 <CollectionView x:Name="collectionName" ItemsSource="{Binding FilteredTopics}" SelectionMode="Single" SelectionChangedCommand="{Binding GoToGamePageCommand}" SelectionChangedCommandParameter="{Binding  Source={x:Reference collectionName}, Path=SelectedItem}">
